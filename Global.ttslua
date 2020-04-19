@@ -1,0 +1,1478 @@
+blackColor = {15/255, 15/255, 15/255}
+
+buttonColors = {
+  ["Red"]     = {{218/255, 25/255, 24/255}, {172/255, 20/255, 19/255}, {126/255, 15/255, 14/255}},
+  ["Blue"]    = {{31/255, 135/255, 255/255}, {0/255, 109/255, 235/255}, {0/255, 85/255, 184/255}},
+  ["Green"]   = {{49/255, 179/255, 43/255}, {38/255, 138/255, 33/255}, {27/255, 97/255, 23/255}},
+  ["Black"] = {{15/255, 15/255, 15/255}} -- unused
+}
+
+startParams = {
+  label = "START", position = {0, -0.2, 5.5}, color = buttonColors["Green"][1], hover_color = buttonColors["Green"][2], press_color = buttonColors["Green"][3], font_color = {1,1,1}, width = 2000, height = 1000, font_size = 400, rotation = {180, 180, 0},
+  click_function = "start"
+}
+
+doneDiscardingParams = {
+  label = "Done Discarding", position = {0, -0.2, 5.5}, width = 5000, height = 1200, font_size = 600, rotation = {180, 180, 0},
+  click_function = "checkReady"
+}
+
+spawnParams = {
+  label = "Spawn Deck", position = {0, -0.2, -16}, width = 3000, height = 1500, font_size = 500, rotation = {180, 180, 0},
+  click_function = "spawnDeck"
+}
+
+discardParams = {
+  label = "[ ] Discard Cards", position = {0, -0.2, 7.5}, width = 2500, height = 650, font_size = 300, rotation = {180, 180, 0},
+  click_function = "discardSetting", tooltip = "Check this setting if you want players to receive more cards and choose what to discard"
+}
+
+spawnCustomParams = {
+  label = "Custom", position = {0, -0.2, -13}, width = 2000, height = 1000, font_size = 400, rotation = {180, 180, 0},
+  click_function = "spawnCustom"
+}
+
+scoreParams = {
+  label = "Score", position = {x = 3.8, y = -0.2, z = 0}, width = 2000, height = 1000, font_size = 600, rotation = {180, 180, 0},
+  click_function = "score"
+}
+
+passParams = {
+  label = "Pass", position = {x = -3.8, y = -0.2, z = 0}, width = 2000, height = 1000, font_size = 600, rotation = {180, 180, 0},
+  click_function = "passClicked"
+}
+
+startTurnParams = {
+  label = "Start Turn", position = {x = 0, y = -0.2, z = 0.75}, width = 3500, height = 1800, font_size = 650, rotation = {180, 180, 0},
+  click_function = "startTurn"
+}
+
+rotateBackwardsParams = {
+  label = "Rotate Backwards", position = {x = 0, y = -0.2, z = 4}, width = 3000, height = 1000, font_size = 370, rotation = {180, 180, 0},
+  click_function = "rotateBack", tooltip = "Rotate the seats backwards, giving the previous clue giver their turn back"
+}
+--width = 1500, height = 750
+endRoundParams = {
+  label = "Next Round", position = {x = 0, y = -0.2, z = -3}, width = 3500, height = 1300, font_size = 500, rotation = {180, 180, 0},
+  color = buttonColors["Green"][1], hover_color = buttonColors["Green"][2], press_color = buttonColors["Green"][3], font_color = {1,1,1}, click_function = "endRound"
+}
+
+switchTurnParams = {
+  label = "Switch Turn", position = {x = 0, y = -0.2, z = -15.5}, width = 3000, height = 1500, font_size = 500, rotation = {180, 180, 0},
+  color = blackColor, click_function = "switchTurn"
+}
+
+countPointParams = {
+  label = "Count Points", position = {x = 0, y = -0.2, z = -3}, width = 4000, height = 1300, font_size = 500, rotation = {180, 180, 0},
+  click_function = "countPoints"
+}
+
+newGameParams = {
+  label = "New Game", position = {0, -0.2, 1}, width = 4000, height = 1600, font_size = 600, rotation = {180, 180, 0},
+  color = buttonColors["Green"][1], hover_color = buttonColors["Green"][2], press_color = buttonColors["Green"][3], font_color = {1,1,1}, click_function = "newGame"
+}
+
+-- Constants
+--deckGuid = "678776"
+checkerStartGuid = "9d19a8"
+checkerPassScoreGuid = "ade49b"
+timerGuid = "0fe55a"
+boardGuid = "2d5517"
+bottomZoneGuid = "850aaf"
+redScoreZoneGuid = "94e45f"
+blueScoreZoneGuid = "81cfd9"
+redBarGuid = "9bb7e6"
+blueBarGuid = "e68f98"
+redScoreGuid = "7e643f"
+blueScoreGuid = "eb79ef"
+--redSecondHandGuid = "3ee6c6"
+--blueSecondHandGuid = "ac2449"
+deckZoneGuid = "90fb46"
+initialDeckZoneGuid = "f263f8"
+deckBagGuid = "394c1c"
+meteorEffectGuid = "8430cf"
+tableBGGuid = "bfdeed"
+
+audioAssetGuid =  "7b9dff"
+
+sound = {
+  ["timeUp"] = 0,
+  ["blueWin"] = 1,
+  ["redWin"] = 2,
+  ["round1"] = 3,
+  ["round2"] = 4,
+  ["round3"] = 5,
+  ["score"] = 6
+}
+
+tabletGUID = {
+  "130b4c", "2c86b9"
+}
+
+barColors = {
+  ["Red"] = {1, 0, 0.1784},
+  ["Blue"] = {0, 0.67658, 1},
+  ["Black"] = {0.25, 0.25, 0.25}
+}
+
+deckPos = {x = 0.00, y = 1.4, z = -32.05}
+
+scorePos = {
+  ["Blue"] = {x = 32.39, y = 2.12, z = 1.04},
+  ["Red"] = {x = -32.39, y = 2.12, z = 1.04}
+}
+
+scorePos3 = {
+  ["Blue"] = {x = 40, y = 2.12, z = 1.04},
+  ["Red"] = {x = -40, y = 2.12, z = 1.04}
+}
+
+playerButtonPos = {
+  ["Blue"] = {x = 23.62, y = 0.94, z = -28.30},
+  ["Red"] = {x = -23.62, y = 0.94, z = -28.30},
+  ["Round 3"] = {x = 0.58, y = 0.94, z = -12.8},
+  ["Start"] = {
+    ["Blue"] = {x = -9.4, y = -0.2, z = -9.3},
+    ["Red"] = {x = 9.4, y = -0.2, z = -9.3}
+  }
+}
+
+cardScale = {
+  ["initial"] = {2.12, 1.00, 2.12},
+  ["large"] = {8.68, 1.00, 8.68}
+}
+
+teamInvert = {
+  ["Red"] = "Blue",
+  ["Blue"] = "Red"
+}
+
+buttonSize = {
+  ["startTurn"] = {
+    ["small"] = {["width"] = 3500, ["height"] = 1700},
+    ["large"] = {["width"] = 3200, ["height"] = 1100}
+  }
+}
+
+buttonPos = {
+  ["startTurn"] = {
+    ["small"] = {x = 0, y = -0.2, z = 0.75},
+    ["large"] = {x = 0, y = -0.2, z = 0}
+  },
+  ["rotateBack"] = {
+    ["small"] = {x = 0, y = -0.2, z = 4},
+    ["large"] = {x = 0, y = -0.2, z = 2.3}
+  }
+}
+
+handScale = {
+  ["small"] = {4.53, 9.17, 4.87},
+  ["large"] = {11.67, 9.17, 4.88}
+}
+
+-- for getting hand index based on the current round
+-- (no longer "used", just defaults to 1)
+roundToHand = {
+  [1] = 1, [2] = 1, [3] = 1
+}
+
+roundTime = {
+  [1] = 60,
+  [2] = 30,
+  [3] = 60
+}
+
+backgroundLink = {
+    [1] = "https://i.imgur.com/BgpJMHU.png",
+    [2] = "https://i.imgur.com/v04d2D5.png",
+    [3] = "https://i.imgur.com/Tn4DT6L.jpg"
+}
+
+--[[
+oldbackgroundLink = {
+    [1] = "https://i.imgur.com/BgpJMHU.png",
+    [2] = "https://i.imgur.com/v04d2D5.png",
+    [3] = "https://i.imgur.com/Tn4DT6L.jpg"
+}
+]]
+
+textColor = {
+  ["Red"] = {230/255, 15/255, 15/255}
+}
+
+-- Globals
+initialDeck = nil
+round = 1
+status = "toStart" --toStart, discarding, aboutToStart, playing, scoring, ready, end, new
+currentTeam = nil
+startTime = nil
+points = {
+  ["Red"] = 0,
+  ["Blue"] = 0
+}
+timerTriggered = false
+lastCardCooldown = 0
+spawnDeckCooldown = 0
+colorsDiscarding = {}
+playerCount = 0
+amountToDeal = 0
+toDiscard = false
+spawningDeck = false
+
+function onSave()
+  local data = {
+    initialDeck = initialDeck,
+    round = round,
+    status = status,
+    currentTeam = currentTeam,
+    startTime = startTime,
+    points = points,
+    colorsDiscarding = colorsDiscarding,
+    playerCount = playerCount,
+    amountToDeal = amountToDeal,
+    toDiscard = toDiscard
+  }
+  local saveData = JSON.encode(data)
+  --saveData = ""
+  return saveData
+end
+
+function onLoad(saveData)
+  --initialDeck = getObjectFromGUID(deckGuid)
+  checkerStart = getObjectFromGUID(checkerStartGuid)
+  checkerStart.interactable = false
+  checkerPassScore = getObjectFromGUID(checkerPassScoreGuid)
+  checkerPassScore.interactable = false
+  timer = getObjectFromGUID(timerGuid)
+  board = getObjectFromGUID(boardGuid)
+  tableBG = getObjectFromGUID(tableBGGuid)
+  tableBG.interactable = false
+  audioAsset = getObjectFromGUID(audioAssetGuid)
+  audioAsset.interactable = false
+
+  bottomZone = getObjectFromGUID(bottomZoneGuid)
+  redScoreZone = getObjectFromGUID(redScoreZoneGuid)
+  blueScoreZone = getObjectFromGUID(blueScoreZoneGuid)
+  redScore = getObjectFromGUID(redScoreGuid)
+  blueScore = getObjectFromGUID(blueScoreGuid)
+  redBar = getObjectFromGUID(redBarGuid)
+  redBar.interactable = false
+  blueBar = getObjectFromGUID(blueBarGuid)
+  blueBar.interactable = false
+  --redSecondHand = getObjectFromGUID(redSecondHandGuid)
+  --blueSecondHand = getAllObjects(redSecondHandGuid)
+  deckZone = getObjectFromGUID(deckZoneGuid)
+  initialDeckZone = getObjectFromGUID(initialDeckZoneGuid)
+  --deckBag = getObjectFromGUID(deckBagGuid)
+
+  getObjectFromGUID(meteorEffectGuid).interactable = false
+  --getObjectFromGUID(meteorEffectGuid).destruct()
+
+  for _, guid in ipairs(tabletGUID) do
+    getObjectFromGUID(guid).interactable = false
+  end
+
+  if saveData != "" then
+    local data = JSON.decode(saveData)
+    initialDeck = data.initialDeck
+    round = data.round
+    status = data.status
+    currentTeam = data.currentTeam
+    startTime = data.startTime
+    points = data.points
+    colorsDiscarding = data.colorsDiscarding
+    playerCount = data.playerCount
+    amountToDeal = data.amountToDeal
+    toDiscard = data.toDiscard
+    startTimer()
+    updatePoints()
+  end
+
+  drawButtons()
+end
+
+function setRandomTeam()
+  local rand = math.random(1, 2)
+  if rand == 1 then
+    currentTeam = "Red"
+  else
+    currentTeam = "Blue"
+  end
+end
+
+function spawnDeck(btn_object, color, alt_click, token)
+  if not Player[color].admin then
+    return
+  end
+
+  if spawningDeck then
+    broadcastToColor("Please wait for the current deck to finish loading", color, textColor["Red"])
+    return
+  end
+
+  spawningDeck = true
+
+  Wait.time(function() spawnDeckCooldown = spawnDeckCooldown - 1 end, 1, 3)
+
+  for _, obj in pairs(initialDeckZone.getObjects()) do
+    if obj.tag == "Card" or obj.tag == "Deck" then
+      obj.destruct()
+    end
+  end
+
+  -- less than 6 players = 4 cards each
+  -- more than 5 = 3 cards each
+  -- players will discard 2 cards each, so raise the number of cards per player by 2
+  playerCount = #getSeatedPlayers()
+  local cardCount
+
+  if playerCount < 6 then
+    amountToDeal = 6
+  else
+    amountToDeal = 5
+  end
+  cardCount = amountToDeal * playerCount
+
+  getNewDeck(cardCount, token)
+end
+
+function spawnCustom(object, color)
+  if not Player[color].admin then
+    return
+  end
+
+  drawButtons()
+
+  for _, button in pairs(checkerStart.getButtons()) do
+    if button.click_function == "spawnCustom" or button.click_function == "spawnDeck" then
+      checkerStart.removeButton(button.index)
+    end
+  end
+  --checkerStart.UI.show("tokenUI")
+  --checkerStart.UI.setAttribute("tokenUI", "visibility", "Admin")
+  checkerStart.UI.setAttribute("tokenUI", "active", "true")
+end
+
+function tokenHelp(player, click_index)
+  printToColor("If you have a custom deck you would like to use, you can use its TTS Load token here.\nDecks can be created at https://platypuseggs.com and their load tokens can also be found here.", player.color)
+end
+
+function cancelToken()
+  --checkerStart.UI.hide("tokenUI")
+  checkerStart.UI.setAttribute("tokenUI", "active", "false")
+  drawButtons()
+end
+
+do
+  local tokenValue
+  function submitToken(player, click_index)
+    if tokenValue == nil or tokenValue == "" then
+      printToAll("No token input found, please input a token and try again", textColor["Red"])
+      return
+    end
+
+    spawnDeck(nil, player.color, nil, tokenValue)
+
+  end
+
+  function endEdit(player, value, id)
+    tokenValue = value
+  end
+end
+
+function discardSetting(obj, color)
+  if not checkPermission(color) then
+    return
+  end
+
+  toDiscard = not toDiscard
+
+  drawButtons()
+
+end
+
+function start(obj, color)
+
+  if not checkPermission(color) then
+    return
+  end
+
+  if not getInitialDeck() then
+    return
+  end
+
+  if #getSeatedPlayers() != playerCount and toDiscard then
+    printToAll("Player count mismatch. Please ensure the same amount of players are seated between spawning a deck and pressing start.\nEither spawn a new deck or have excess players stand up for this initial process.", textColor.Red)
+    return
+  end
+  --status = "discarding" drawButtons()
+  --[[
+  if #deckBag.getObjects() > 0 then
+    initialDeck = deckBag.takeObject({index = 0, position = {11.53, 2.30, 31.87}, rotation = {0, 180, 180}})
+  else
+    initialDeck = findDeckCard(initialDeckZone)
+  end]]
+
+  discardParams.position = {0, -0.2, 3.5}
+
+  local count = 0
+  for _, object in pairs(initialDeckZone.getObjects()) do
+    if isDeckCard(object) then
+      count = count + 1
+    end
+  end
+
+  if count > 1 then
+    return
+  end
+
+  initialDeck.shuffle()
+
+  if toDiscard then
+    -- hand size
+    local params = Player["Red"].getHandTransform()
+    params.scale = handScale.large
+    Player["Red"].setHandTransform(params)
+    local params = Player["Blue"].getHandTransform()
+    params.scale = handScale.large
+    Player["Blue"].setHandTransform(params)
+
+    printToAll("Cards dealt, each player must discard 2 cards and keep the remaining cards in their hand. Press 'Done Discarding' once everyone is ready", {1,1,0})
+    dealCards()
+    status = "discarding" drawButtons()
+  else
+
+    if playerCount < 6 then
+      amountToDeal = 6
+    else
+      amountToDeal = 5
+    end
+
+    local amount
+    if #getSeatedPlayers() < 6 then amount = 4 else amount = 3 end
+    local total = amount * #getSeatedPlayers()
+
+    local remainingDeck
+    if #initialDeck.getObjects() > total + 1 then
+      local decks = initialDeck.cut(total)
+      deck = decks[2]
+      remainingDeck = decks[1]
+    else
+      deck = initialDeck
+    end
+
+    deck.setPositionSmooth(deckPos)
+    deck.setRotation({0,180,180})
+    if remainingDeck != nil then
+      -- delete the leftover card history
+      Wait.time(function()
+        local discardedCards = {}
+        for _, card in pairs(remainingDeck.getObjects()) do
+          local id = string.sub(card.lua_script, string.find(card.lua_script, ";") + 1)
+          table.insert(discardedCards, id)
+        end
+        sendDiscardCards(discardedCards)
+        remainingDeck.destruct()
+      end, 1)
+    end
+    startTasks()
+  end
+end
+
+function getInitialDeck()
+  initialDeck = findDeckCard(initialDeckZone)
+
+  if initialDeck == nil or initialDeck.tag != "Deck" then
+    printToAll("Error retrieving deck. Please ensure you have spawned a deck and it is placed on the pedestal near the timer.", textColor.Red)
+    return false
+  end
+
+  return true
+end
+
+function dealCards()
+  colorsDiscarding = {}
+  for _, color in pairs(getSeatedPlayers()) do
+    table.insert(colorsDiscarding, color)
+    initialDeck.deal(amountToDeal, color)
+  end
+end
+
+
+function checkReady(obj, color)
+
+  if not checkPermission(color) then
+    return
+  end
+
+  local ready = true
+  for _, color in pairs(colorsDiscarding) do
+    local hand = Player[color].getHandObjects()
+    if #hand != amountToDeal - 2 then
+      ready = false
+      break
+    end
+  end
+
+  if ready then
+
+    -- construct a list of all the cards the players are holding
+    local heldCards = {}
+    for _, color in pairs(colorsDiscarding) do
+      for _, object in pairs(Player[color].getHandObjects(roundToHand[round])) do
+        table.insert(heldCards, object)
+      end
+    end
+
+    -- delete any cards or decks not being held, after logging who they belong to
+    local discardedCards = {}
+    for _, object in pairs(getAllObjects()) do
+      if isDeckCard(object) and not includes(heldCards, object) then
+        --- log the card before destroying it
+        local color = findClosestColor(object)
+        if object.tag == "Card" then
+          local id = string.sub(object.getLuaScript(), string.find(object.getLuaScript(), ";") + 1)
+          table.insert(discardedCards, id)
+        else
+          for _, card in pairs(object.getObjects()) do
+            local id = string.sub(card.lua_script, string.find(card.lua_script, ";") + 1)
+            table.insert(discardedCards, id)
+          end
+        end
+
+        object.destruct()
+      end
+    end
+    sendDiscardCards(discardedCards)
+
+    -- take all cards into a deck
+    for _, card in pairs(heldCards) do
+      card.use_hands = false
+      card.setRotation({0,180,180})
+      card.setPositionSmooth(deckPos)
+    end
+    searchingForDeck = true
+    Wait.time(function() searchingForDeck = false end, 1)
+
+    startTasks()
+
+  else
+    printToAll("Incorrect card count. Please ensure everyone has discarded exactly 2 cards and has the the remaining cards in their hand", textColor["Red"])
+  end
+end
+
+function startTasks()
+
+  -- initial color and turn
+  setRandomTeam()
+  checkerPassScore.setPosition(playerButtonPos[currentTeam])
+  colorBars(currentTeam)
+
+  -- hand size
+  local params = Player["Red"].getHandTransform()
+  params.scale = handScale.small
+  Player["Red"].setHandTransform(params)
+  local params = Player["Blue"].getHandTransform()
+  params.scale = handScale.small
+  Player["Blue"].setHandTransform(params)
+
+  -- buttons
+  status = "aboutToStart" drawButtons()
+
+  -- background
+  lockAndLoad()
+
+  -- start checking the timer
+  startTimer()
+
+  playSound(sound.round1)
+
+  startTime = Time.time
+end
+
+function startTimer()
+  timerCheckID = Wait.time(function()
+    if timer.getValue() == 0 and not timerTriggered then
+      -- after one second, switch the turn
+      playSound(sound.timeUp)
+      timerTriggered = true
+      Wait.time(function() timerTriggered = false switchTurn() end, 1)
+    end
+  end, 0.2, -1)
+end
+
+function findClosestColor(object)
+  local smallest
+  local closestColor
+  local objPos = object.getPosition()
+  for _, color in pairs(getSeatedPlayers()) do
+    local handPos = Player[color].getHandTransform().position
+    local distance = math.sqrt((objPos.x - handPos.x)^2 + (objPos.z - handPos.z)^2)
+
+    if smallest == nil or distance < smallest then
+      smallest = distance
+      closestColor = color
+    end
+  end
+
+  return closestColor
+end
+
+function onObjectSpawn(object)
+  if object.tag == "Deck" then
+    -- in case the players make a new deck by stacking a card when the deck only has 1 card left
+    local pos = object.getPosition()
+    if math.sqrt((deckPos.x - pos.x)^2 + (deckPos.z - pos.z)^2) < 2 then
+      deck = object
+    end
+  elseif object.tag == "Card" then
+    -- cards will have use hands disabled as they are moved out of player hands, reenable when they're redrawn
+    object.use_hands = true
+  end
+end
+
+function onObjectEnterScriptingZone(zone, obj)
+  -- reset cards that enter the bottom of the table (assumed to be someone's hand)
+  if zone == bottomZone and obj.tag == "Card" and obj.getScale().x > cardScale.large[1] - 1 then
+    obj.setScale(cardScale.initial)
+  end
+end
+
+function findDeckCard(zone)
+  for _, object in pairs(zone.getObjects()) do
+    if isDeckCard(object) then
+      return object
+    end
+  end
+end
+
+function checkHand()
+  local cards = Player[currentTeam].getHandObjects(roundToHand[round])
+  if #cards != 1 then
+    return false
+  else
+    return true
+  end
+end
+
+function switchTurn(object, color)
+  if color != null and not (Player[color].admin or color == currentTeam) then
+    return
+  end
+
+  timer.setValue(roundTime[round])
+  pass(false)
+
+  Wait.time(function()
+    deck.shuffle()
+    rotateColors(teamInvert[currentTeam])
+  end, 0.5)
+
+
+  currentTeam = teamInvert[currentTeam]
+
+
+  -- replace start turn button
+  --if round == 3 then startTurnParams.position = playerButtonPos["Start"][currentTeam] end
+  status = "aboutToStart"
+  drawButtons()
+
+  if round < 3 then checkerPassScore.setPosition(playerButtonPos[currentTeam]) end
+  if not timerTriggered then
+    colorBars(currentTeam)
+    recolorButtons(currentTeam)
+  end
+end
+
+function colorBars(scheme)
+  if scheme == "Red" then
+    redBar.setColorTint(barColors["Red"]) blueBar.setColorTint(barColors["Black"])
+  elseif scheme == "Blue" then
+    redBar.setColorTint(barColors["Black"]) blueBar.setColorTint(barColors["Blue"])
+  else
+    -- turn them both on
+    redBar.setColorTint(barColors["Red"]) blueBar.setColorTint(barColors["Blue"])
+  end
+end
+
+function startTurn(object, color)
+  if color != currentTeam then
+    return
+  end
+
+  status = "playing"
+  drawButtons()
+
+  timer.Clock.paused = false
+  getNewCard(currentTeam)
+
+  -- remove start turn button
+  for _, button in pairs(checkerPassScore.getButtons()) do
+    if button.click_function == "startTurn" then
+      checkerPassScore.removeButton(button.index)
+      break
+    end
+  end
+end
+
+function score(object, color)
+  if color != currentTeam then
+    return
+  end
+
+  if checkHand() then
+    -- move card to score pile
+    local card = Player[currentTeam].getHandObjects(roundToHand[round])[1]
+    card.use_hands = false
+
+    playSound(sound.score)
+
+    local pos
+    if round <  3 then
+      pos = scorePos[currentTeam]
+    else
+      pos = scorePos3[currentTeam]
+    end
+    card.setPositionSmooth(pos, false, true)
+
+    if round < 3 then
+      -- start a wait function to expand the card once it stops moving
+      Wait.condition(function()
+        card.setScale(cardScale.large)
+      end,
+      function()
+        return not card.isSmoothMoving()
+      end, 5)
+    end
+
+    if round == 3 then clearBoard() end
+
+    -- in case the team changes before the new card function is reached
+    local team = currentTeam
+    Wait.time(function() getNewCard(team) end, 0.5)
+  end
+
+  -- always check round end whether the hand is valid or not, allowing people to click score with an empty hand to end the round
+  Wait.time(function() checkRoundEnd() end, 0.5)
+end
+
+function passClicked(object, color)
+  if color != currentTeam then
+    return
+  end
+
+  pass(true, color)
+end
+
+-- boolean represents if a card should be dealt or not
+function pass(deal, color)
+  if lastCardCooldown > 0 and color != nil then
+    Player[color].broadcast("Pass Cooldown: " .. lastCardCooldown .. " seconds")
+    return
+  end
+
+  if checkHand() then
+    -- send this card back to the bottom of the deck
+    local card = Player[currentTeam].getHandObjects(roundToHand[round])[1]
+    card.use_hands = false
+
+    local pos = deckPos
+    pos.y = 1.14
+    card.setPositionSmooth(pos, false, true)
+    card.setRotation({0,180,180})
+
+    if round == 3 then clearBoard() end
+
+    -- in case the team changes before the new card function is reached
+    local team = currentTeam
+
+    if deal then
+      Wait.time(function()
+        if getNewCard(team) then
+            lastCardCooldown = 5
+            Wait.time(function() lastCardCooldown = lastCardCooldown - 1 end, 1, 5)
+        end
+      end, 0.5)
+
+    end
+  end
+end
+
+-- returns true if the last card has been dealt
+function getNewCard(team)
+  if team != currentTeam or timerTriggered then
+    return
+  end
+
+  if deck == null then
+    deck = findDeckCard(deckZone)
+    if deck == null then
+      return
+    end
+  end
+
+  if includes(bottomZone.getObjects(), deck) then
+    -- only deal a card it's at the bottom of the table
+    -- this is mainly done because "decks" that are actually 1 card will be sent back to the player's hand otherwise
+    deck.deal(1, currentTeam)
+
+    if deck.tag == "Card" then
+      return true
+    end
+
+  end
+
+end
+
+function checkRoundEnd()
+  -- if there are no cards along the bottom (in either player's hand or in the deck)
+  local empty = true
+  for _, object in pairs(bottomZone.getObjects()) do
+    if isDeckCard(object) then
+      empty = false
+    end
+  end
+
+  if empty then
+    timer.Clock.paused = true
+    rotateColors(currentTeam)
+    colorBars("Both")
+    if round == 3 then
+      status = "end"
+      endGame()
+    else
+      status = "scoring"
+    end
+    drawButtons()
+  end
+end
+
+function endRound(object, color)
+  if not checkPermission(color) then
+    return
+  end
+
+  -- disable this button from doing anything while waiting for the deck  to form
+  checkerStart.editButton({index = 0, click_function = "nullFunction"})
+  moveAllCardsTo(redScoreZone, deckPos)
+  moveAllCardsTo(blueScoreZone, deckPos)
+  round = round + 1
+
+  if round == 3 then clearBoard() end
+  playSound(sound["round" .. round])
+
+  -- set the team with the least points to the current team
+  if points["Blue"] > points["Red"] then
+    currentTeam = "Red"
+  elseif points["Blue"] < points["Red"] then
+    currentTeam = "Blue"
+  else
+    -- same amount of points, set a random team
+    setRandomTeam()
+  end
+
+  Wait.time(function() -- wait for the deck to form
+    deck = findDeckCard(deckZone)
+    deck.shuffle()
+    if round == 3 then
+      -- drawing round, buttons need to be repositioned and made larger
+      startTurnParams.width = buttonSize.startTurn.large.width
+      startTurnParams.height = buttonSize.startTurn.large.height
+      rotateBackwardsParams.position = buttonPos.rotateBack.large
+      startTurnParams.position = buttonPos.startTurn.large
+
+      Wait.frames(function()
+        checkerPassScore.scale(2.5)
+        checkerPassScore.setPosition(playerButtonPos["Round 3"])
+      end, 1)
+
+    else
+      --checkerPassScore.setPositionSmooth(playerButtonPos[currentTeam], false, true)
+      Wait.frames(function() checkerPassScore.setPosition(playerButtonPos[currentTeam]) end, 1)
+    end
+
+    lockAndLoad()
+
+    colorBars(currentTeam)
+    timer.setValue(roundTime[round])
+    status = "aboutToStart" drawButtons()
+  end, 2)
+end
+
+function endGame()
+  Wait.stop(timerCheckID)
+  local seconds = Time.time - startTime
+  broadcastToAll("Game Complete. This game took " .. math.floor(seconds + 0.5) .. " seconds (" .. math.floor(seconds / 60 + 0.5) .. " minutes).", {1,1,0})
+end
+
+function newGame(object, color)
+  if not Player[color].admin then
+    return
+  end
+
+  -- delete any cards on the table
+  if not getInitialDeck() then
+    return
+  end
+  for _, object in pairs(getAllObjects()) do
+    if (object.tag == "Card" or object.tag == "Deck") and object != initialDeck then
+      object.destruct()
+    end
+  end
+
+  round = 1
+  points["Red"] = 0 points["Blue"] = 0
+  updatePoints()
+  timer.setValue(roundTime[1])
+
+  checkerPassScore.scale(1/2.5)
+  startTurnParams.height = buttonSize.startTurn.small.height
+  startTurnParams.width = buttonSize.startTurn.small.width
+  rotateBackwardsParams.position = buttonPos.rotateBack.small
+  startTurnParams.position = buttonPos.startTurn.small
+
+  start(nil, color)
+end
+
+-- reloads table background and locks it
+function lockAndLoad()
+  tableBG.setCustomObject({image = backgroundLink[round]})
+  tableBG = tableBG.reload()
+  tableBG.interactable = false
+end
+
+function moveAllCardsTo(zone, position)
+  for _, object in pairs(zone.getObjects()) do
+    if isDeckCard(object) then
+      object.setPositionSmooth(position)
+      object.setRotationSmooth({0,180,180}) -- face down
+
+      if round < 3 then
+        object.setScale(cardScale.initial)
+      end
+    end
+  end
+end
+
+function countPoints(object, color)
+  if not checkPermission(color) then
+    return
+  end
+
+  local redPrev = points["Red"]
+  local bluePrev = points["Blue"]
+
+  countTeamPoints("Red")
+  countTeamPoints("Blue")
+
+  local redDiff = points["Red"] - redPrev
+  local blueDiff = points["Blue"] - bluePrev
+
+  broadcastToAll("Red team has scored [FF0000]" .. redDiff .. "[-] points and blue team has scored [2d75eb]" .. blueDiff .. "[-] points.", {1,1,0})
+
+  --[[ if redDiff > 0 or blueDiff > 0 then
+    broadcastToAll("Red team has scored ", {1,1,0})
+  end --]]
+
+  -- announce winner after a delay
+  local currentRound = round -- in case next round is pressed quickly after count points
+  Wait.time(function()
+    if currentRound == 3 then
+      local winner
+      local hexCode
+      if points["Red"] > points["Blue"] then
+        playSound(sound.redWin)
+        winner = "Red"
+        hexCode = "FF0000"
+      elseif points["Blue"] > points["Red"] then
+        playSound(sound.blueWin)
+        winner = "Blue"
+        hexCode = "2d75eb"
+      end
+
+      if winner == nil then
+        broadcastToAll("It's a draw!", {1,1,0})
+      else
+        broadcastToAll("The winner is [" .. hexCode .. "]" .. winner .. "[-] team!", {1,1,0})
+      end
+
+      updatePoints()
+
+    end
+  end, 2)
+
+  if round < 3 then
+    status = "ready" drawButtons()
+  else
+    status = "new" drawButtons()
+  end
+
+  if currentRound != 3 then
+    updatePoints()
+  end
+
+end
+
+function countTeamPoints(color)
+  local zone
+  if color == "Red" then
+    zone = redScoreZone
+  else
+    zone = blueScoreZone
+  end
+
+  local deckCard = findDeckCard(zone)
+  local total = 0
+  if deckCard != nil then
+    if deckCard.tag == "Deck" then
+      -- loop through cards in the deck
+      for _, card in ipairs(deckCard.getObjects()) do
+        total = total + string.sub(card.lua_script, 3, 3)
+      end
+    elseif deckCard.tag == "Card" then
+      -- just the one card's points to use
+      total = total + string.sub(deckCard.getLuaScript(), 3, 3)
+    end
+  end
+
+  points[color] = points[color] + total
+end
+
+function updatePoints()
+  redScore.UI.setValue("redScore", points["Red"])
+  blueScore.UI.setValue("blueScore", points["Blue"])
+end
+
+function clearBoard()
+  Global.setVectorLines({})
+end
+
+-- defines who is allowed to click on next round and count points
+function checkPermission(color)
+  if Player[color].admin or color == "Red" or color == "Blue" then
+    return true
+  else
+    return false
+  end
+end
+
+do
+  teamColors = {
+    ["Red"] = {[0] = "Red", [1] = "Green", [2] =  "Teal", [3] = "Yellow", [4] = "Orange"},
+    ["Blue"] = {[0] = "Blue", [1] = "White", [2] = "Brown", [3] = "Purple", [4] = "Pink"},
+    ["RedReverse"] = {[0] = "Red", [1] = "Orange", [2] =  "Yellow", [3] = "Teal", [4] = "Green"},
+    ["BlueReverse"] = {[0] = "Blue", [1] = "Pink", [2] = "Purple", [3] = "Brown", [4] = "White"}
+  }
+
+  function rotateColors(team)
+    local colors = teamColors[team]
+    local players = {}
+    local mainSeated = false -- if red/blue is about to be seated
+
+    -- construct a list of players on a team, where their index indicates the colour they are to be moved to
+    for _, playerRef in pairs(Player.getPlayers()) do
+      local playerColor = playerRef.color
+      for i, color in pairs(colors) do
+        if playerColor == color then
+          local index = (i + 1) % 5
+          players[index] = playerRef
+        end
+      end
+    end
+
+    for _, playerRef in pairs(players) do
+      playerRef.changeColor("Grey")
+    end
+
+    -- keep shifting them up until someone is sitting in index 0 (red/blue)
+    for _ = 0, 3 do
+
+      -- check if someone is in index 0
+      for i, _ in pairs(players) do
+        if i == 0 then
+          goto exitZero
+        end
+      end
+
+      -- shift a copy
+      local playersCopy = {}
+      for i, player in pairs(players) do
+        local index = (i + 1) % 5
+        playersCopy[index] = player
+      end
+
+      -- copy into players
+      players = {}
+      for i, player in pairs(playersCopy) do
+        players[i] = player
+      end
+
+
+    end
+    ::exitZero::
+
+    for i, playerRef in pairs(players) do
+      playerRef.changeColor(colors[i])
+    end
+
+  end
+end
+
+function rotateBack(obj, color)
+  if color != currentTeam then
+    return
+  end
+  rotateColors(currentTeam .. "Reverse")
+end
+
+function onUpdate()
+  --[[
+  local time = timer.getValue()
+  if time == 0 then
+    switchTurn()
+  end
+  ]]
+end
+
+function recolorButtons(color)
+  recolorButtonsOnObject(checkerStart, color)
+  recolorButtonsOnObject(checkerPassScore, color)
+end
+
+function recolorButtonsOnObject(object, color)
+  if object.getButtons() != nil then
+    for _, button in pairs(object.getButtons()) do
+      colorScheme = buttonColors[color]
+      object.editButton({index = button.index, color = colorScheme[1], hover_color = colorScheme[2], press_color = colorScheme[3]})
+    end
+  end
+end
+
+function drawButtons()
+
+  checkerStart.clearButtons()
+  checkerPassScore.clearButtons()
+  checkerStart.UI.setAttribute("tokenUI", "active", "false")
+
+  if status == "toStart" then
+    -- players need to spawn a deck and press start
+    checkerStart.createButton(startParams)
+    checkerStart.createButton(spawnParams)
+    checkerStart.createButton(spawnCustomParams)
+    local params = deepCopy(discardParams)
+    if toDiscard then params.label = "[X] Discard Cards" end
+    checkerStart.createButton(params)
+  elseif status == "discarding" then
+    checkerStart.createButton(doneDiscardingParams)
+  elseif status == "aboutToStart" then
+    -- cards are in a deck and players are ready to play
+    checkerStart.createButton(switchTurnParams)
+    checkerPassScore.createButton(startTurnParams)
+    checkerPassScore.createButton(rotateBackwardsParams)
+    recolorButtons(currentTeam)
+  elseif status == "playing" then
+    checkerPassScore.createButton(passParams)
+    checkerPassScore.createButton(scoreParams)
+    recolorButtons(currentTeam)
+  elseif status == "scoring" then
+    -- end of round, players are busy scoring
+    checkerStart.createButton(countPointParams)
+    --recolorButtons(currentTeam)
+  elseif status == "ready" then
+    -- players are done scoring and ready to go to the next round
+    checkerStart.createButton(endRoundParams)
+    checkerStart.editButton({index = 0, width = switchTurnParams.width, height = switchTurnParams.height, font_size = switchTurnParams.font_size})
+  elseif status == "end" then
+    --checkerStart.createButton(newGameParams)
+    checkerStart.createButton(countPointParams)
+  elseif status == "new" then
+    checkerStart.createButton(newGameParams)
+    checkerStart.createButton(spawnParams)
+    checkerStart.createButton(spawnCustomParams)
+    local params = deepCopy(discardParams)
+    if toDiscard then params.label = "[X] Discard Cards" end
+    checkerStart.createButton(params)
+  end
+end
+
+function isDeckCard(object)
+  if object.tag == "Card" or object.tag == "Deck" then
+    return true
+  end
+  return false
+end
+
+function includes(table, element)
+  for _, v in pairs(table) do
+    if element == v then
+      return true
+    end
+  end
+  return false
+end
+
+function deepCopy(orig)
+    local orig_type = type(orig)
+    local copy
+    if orig_type == 'table' then
+        copy = {}
+        for orig_key, orig_value in next, orig, nil do
+            copy[deepCopy(orig_key)] = deepCopy(orig_value)
+        end
+        setmetatable(copy, deepCopy(getmetatable(orig)))
+    else -- number, string, boolean, etc
+        copy = orig
+    end
+    return copy
+end
+
+-- kinda just got tired of writing audioAsset.AssetBundle.playTriggerEffect every time
+function playSound(index)
+  audioAsset.AssetBundle.playTriggerEffect(index)
+end
+
+function nullFunction()
+  -- does nothing
+end
+
+-- testing purposes only
+function onChat(message, player)
+  if player.admin then
+
+    if message == "!background" then
+      tableBG.interactable = not tableBG.interactable
+      return false
+    elseif message == "!rotate red" then
+      rotateColors("Red")
+      return false
+    elseif message == "!rotate blue" then
+      rotateColors("Blue")
+      return false
+    elseif message == "!random" then
+      shufflePlayers(player.color)
+      return false
+    end
+
+  end
+end
+
+
+function onScriptingButtonDown(index, player_color)
+
+
+end
+
+function shuffleTable(tab)
+    --print("Shuffle Table called.")
+    for i = 1, #tab * 2 do
+        local a = math.random(#tab)
+        local b = math.random(#tab)
+        tab[a], tab[b] = tab[b], tab[a]
+    end
+    return tab
+end
+
+shufflePlayersDebounce = false
+
+function shufflePlayers(colour)
+    if #getSeatedPlayers() < 2 then printToAll("Shuffle Players: [808080]".. Player[colour].steam_name ..", there must be more than one player for shuffling to work.", textColour) return end
+    if Player["Black"].seated == true then printToAll("Please remove Player Black for shuffling to work.", textColour) return end
+    shufflePlayersDebounce = true
+
+    printToAll("Shuffle Players: ".. Player[colour].steam_name .. " initiated shuffling.", textColour)
+
+    local ranColours = {}
+
+    --INSERT THE COLOURS
+
+    for _, v in pairs(getSeatedPlayers()) do
+        table.insert(ranColours, v)
+    end
+
+    shuffleTable(ranColours)
+
+    seatedPlayers = {}
+    for i, v in pairs(getSeatedPlayers()) do
+        seatedPlayers[v] = {}
+        seatedPlayers[v].target = ranColours[i]
+        seatedPlayers[v].myColour = v
+        --printToAll(Player[v].steam_name .. "(".. v ..") -> ".. ranColours[i], {1, 1, 1})
+        if seatedPlayers[v].target == v then
+            seatedPlayers[v].prevMoved = true
+            seatedPlayers[v].moved = true
+        else
+            seatedPlayers[v].prevMoved = false
+            seatedPlayers[v].moved = false
+        end
+    end
+
+    --START SHUFFLING PLAYERS.
+
+    function shuffleDelay()
+
+        for timeout = 1, 50 do
+
+            --GO THROUGH SEATED PLAYERS. IF THEY HAVEN'T MOVED, CHECK IF THEY CAN BE MOVED.
+            for i, v in pairs(seatedPlayers) do
+                --print("Test")
+                if v.moved == false then
+                    if Player[v.target].seated == false then
+                        local myC = v.myColour
+                        if Player[myC].seated == true then
+                            --print("Moving player ".. myC)
+                            Player[myC]:changeColor(v.target)
+                            while Player[myC].seated == true and Player[v.target].seated == false do
+                                coroutine.yield()
+                            end
+                            v.myColour = v.target
+                            v.moved = true
+                        else
+                            table.remove(seatedPlayers, i)
+                        end
+                    end
+                end
+            end
+
+            local checkIfSame = true
+            for _, v in pairs(seatedPlayers) do
+                if v.prevMoved ~= v.moved then
+                    checkIfSame = false
+                    break
+                end
+            end
+
+            if checkIfSame == true then
+                --print("Is same.")
+                local allNonMovedPlayers = {}
+                for i, v in pairs(seatedPlayers) do
+                    if v.moved == false then
+                        table.insert(allNonMovedPlayers, v)
+                    end
+                end
+
+                if #allNonMovedPlayers ~= 0 then
+                    local lastPlayer = allNonMovedPlayers[#allNonMovedPlayers]
+                    Player[lastPlayer.myColour]:changeColor("Black")
+                    lastPlayer.myColour = "Black"
+                    while Player["Black"].seated == false do
+                        coroutine.yield()
+                    end
+                end
+
+            end
+
+            local count1, count2 = 0, 0
+            for _, v in pairs(seatedPlayers) do
+                count1 = count1 + 1
+                if v.moved == true then
+                    count2 = count2 + 1
+                end
+            end
+
+            if count1 == count2 then break end
+
+            for _, v in pairs(seatedPlayers) do
+                v.prevMoved = v.moved
+            end
+
+            coroutine.yield()
+        end
+
+        shufflePlayersDebounce = false
+
+        return 1
+    end
+
+    startLuaCoroutine(self, "shuffleDelay")
+
+end
+
+function getNewDeck(cardAmount, token)
+
+  spawningDeck = true
+
+  local payload = {}
+  local callback
+
+  local steamIDs = {}
+  for _, color in pairs(getSeatedPlayers()) do
+    if Player[color].seated then
+      table.insert(steamIDs, Player[color].steam_id)
+    end
+  end
+  payload["SteamIDs"] = steamIDs
+
+  if token != nil then
+    payload["Token"] = token
+    callback = function(webReturn, cardAmount) tokenCallback(webReturn, cardAmount, token) end
+  else
+    callback = function(webReturn, cardAmount) vanillaCallback(webReturn, cardAmount) end
+  end
+
+  --payload["Token"] = ""
+
+  payload["DeckSize"] = cardAmount
+
+  --WebRequest.get("http://platypuseggs.com/VerbatimService.svc/GetDeck/" .. cardAmount, function(a) webCallback(a, cardAmount) end)
+  --{"SteamIDs":["tes2t", "test1"], "Token":"token123", "DeckSize":"16"}
+  WebRequest.put("https://platypuseggs.com/VerbatimService.svc/GetDeckWithSteamIds", JSON.encode(payload), function(webReturn) callback(webReturn, cardAmount) end)
+end
+
+function tokenCallback(webReturn, cardAmount, token)
+  if JSON.decode(webReturn.text).GetDeckWithSteamIdsAndTokenResult.Cards == nil then
+    printToAll('Could not find a deck with the token "' .. token .. '", please check your token and try again', textColor["Red"])
+    spawningDeck = false
+    return
+  else
+    vanillaCallback(webReturn, cardAmount)
+  end
+end
+
+function vanillaCallback(webReturn, cardAmount)
+  local webData = JSON.decode(webReturn.text).GetDeckWithSteamIdsAndTokenResult
+  cards = webData.Cards
+  imageSheet = webData.ImageFile
+  spawnObject({type = "deck", scale = cardScale.initial, position = initialDeckZone.getPosition(), rotation = {0.00, 180.00, 180.00},
+  callback_function = function(a) deckSpawned(a, cardAmount) end})
+end
+
+
+function deckSpawned(obj, cardAmount)
+
+  obj.setCustomObject({
+    face = imageSheet,
+    back = "http://cloud-3.steamusercontent.com/ugc/775101441398879936/59FE410AD09EA886EF2DB9FB559458907F8C63C9/",
+    back_is_hidden = true,
+    number = cardAmount
+  })
+
+
+  local cardNum = #obj.getObjects()
+  for i = 1, cardNum do
+    local card
+    if obj != nil then
+      -- deck still exists
+      card = obj.takeObject({index = 0, position = initialDeckZone.getPosition()})
+      card.setName(cards[i].Title)
+      card.script_code = "--" .. cards[i].PointValue
+      card.script_code = card.script_code .. ";" .. cards[i].VerbatimCardId
+      card.setDescription(cards[i].Description)
+      --cardPoints[card.guid] = cards[i].PointValue
+    end
+  end
+
+  spawningDeck = false
+
+end
+
+
+function sendDiscardCards(discardedCards)
+
+  local steamIDs = {}
+  for _, color in pairs(getSeatedPlayers()) do
+    table.insert(steamIDs, Player[color].steam_id)
+  end
+
+  local data = {["CardIds"] = discardedCards, ["SteamIds"] = steamIDs}
+  WebRequest.put("https://platypuseggs.com/VerbatimService.svc/DeleteCardPlayHistories", JSON.encode(data))
+end
