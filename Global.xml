@@ -1,37 +1,59 @@
-<TableLayout id = "gameCommandsRed" class = "gameCommandsTable">
+<TableLayout id = "gameActionsRed" class = "gameActionsLayout">
     <Row preferredHeight = "50">
-        <Cell class = "gameCommandsCell">
-            <Button class = "gameCommandsButton redButton" onClick="uiSwitchTurn">Switch Turns</Button>
+        <Cell class = "actionsCell">
+            <Button class = "redButton" onClick="uiSwitchTurn">Switch Turns</Button>
         </Cell>
-        <Cell class = "gameCommandsCell">
-            <Button class = "gameCommandsButton redButton" onClick="uiStartTurn">Start Turn</Button>
+        <Cell class = "actionsCell">
+            <Button class = "redButton" onClick="uiStartTurn">Start Turn</Button>
         </Cell>
     </Row>
     <Row preferredHeight = "50">
-        <Cell class = "gameCommandsCell">
-            <Button class = "gameCommandsButton redButton" onClick="uiRotate(Red)">Rotate Seats Forwards</Button>
+        <Cell class = "actionsCell">
+            <Button class = "redButton" onClick="uiRotate(Red)">Rotate Seats Forwards</Button>
         </Cell>
-        <Cell class = "gameCommandsCell">
-            <Button class = "gameCommandsButton redButton" onClick="uiRotate(RedReverse)">Rotate Seats Backwards</Button>
+        <Cell class = "actionsCell">
+            <Button class = "redButton" onClick="uiRotate(RedReverse)">Rotate Seats Backwards</Button>
         </Cell>
     </Row>
 </TableLayout>
 
-<TableLayout id = "gameCommandsBlue" class = "gameCommandsTable">
+<TableLayout id = "gameActionsBlue" class = "gameActionsLayout">
     <Row preferredHeight = "50">
-        <Cell class = "gameCommandsCell">
-            <Button class = "gameCommandsButton blueButton" onClick="uiSwitchTurn">Switch Turns</Button>
+        <Cell class = "actionsCell">
+            <Button class = "blueButton" onClick="uiSwitchTurn">Switch Turns</Button>
         </Cell>
-        <Cell class = "gameCommandsCell">
-            <Button class = "gameCommandsButton blueButton" onClick="uiStartTurn">Start Turn</Button>
+        <Cell class = "actionsCell">
+            <Button class = "blueButton" onClick="uiStartTurn">Start Turn</Button>
         </Cell>
     </Row>
     <Row preferredHeight = "50">
-        <Cell class = "gameCommandsCell">
-            <Button class = "gameCommandsButton blueButton" onClick="uiRotate(Blue)">Rotate Seats Forwards</Button>
+        <Cell class = "actionsCell">
+            <Button class = "blueButton" onClick="uiRotate(Blue)">Rotate Seats Forwards</Button>
         </Cell>
-        <Cell class = "gameCommandsCell">
-            <Button class = "gameCommandsButton blueButton" onClick="uiRotate(BlueReverse)">Rotate Seats Backwards</Button>
+        <Cell class = "actionsCell">
+            <Button class = "blueButton" onClick="uiRotate(BlueReverse)">Rotate Seats Backwards</Button>
+        </Cell>
+    </Row>
+</TableLayout>
+
+<TableLayout id = "playingActionsRed" class = "playingActionsLayout">
+    <Row preferredHeight = "50">
+        <Cell class = "actionsCell">
+            <Button class = "redButton" onClick="uiScore(Red)">Score</Button>
+        </Cell>
+        <Cell class = "actionsCell">
+            <Button class = "redButton" onClick="uiPass(Red)">Pass</Button>
+        </Cell>
+    </Row>
+</TableLayout>
+
+<TableLayout id = "playingActionsBlue" class = "playingActionsLayout">
+    <Row preferredHeight = "50">
+        <Cell class = "actionsCell">
+            <Button class = "blueButton" onClick="uiScore(Blue)">Score</Button>
+        </Cell>
+        <Cell class = "actionsCell">
+            <Button class = "blueButton" onClick="uiPass(Blue)">Pass</Button>
         </Cell>
     </Row>
 </TableLayout>

@@ -1,5 +1,5 @@
 <Defaults>
-    <TableLayout class= "gameCommandsTable"
+    <TableLayout class= "gameActionsLayout"
         height = "100"
         width = "250"
         rectAlignment = "LowerCenter"
@@ -7,7 +7,17 @@
         visibility = ""
         active = "false"
         />
-    <Cell class = "gameCommandsCell" columnSpan = "1" dontUseTableCellBackground = "true"/>
+
+    <TableLayout class= "playingActionsLayout"
+        height = "50"
+        width = "250"
+        rectAlignment = "LowerCenter"
+        offsetXY = "0 7"
+        visibility = ""
+        active = "false"
+        />
+
+    <Cell class = "actionsCell" columnSpan = "1" dontUseTableCellBackground = "true"/>
     <Button class = "redButton" colors="#FF404060|#FF4040FF|#FF404080|#FF404080" textColor="#FFFFFF"/>
     <Button class = "blueButton" colors="#4040FF60|#4040FFFF|#4040FF80|#4040FF80" textColor="#FFFFFF"/>
 

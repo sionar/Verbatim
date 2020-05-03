@@ -1172,11 +1172,14 @@ function drawButtons()
     checkerPassScore.createButton(startTurnParams)
     checkerPassScore.createButton(rotateBackwardsParams)
     recolorButtons(currentTeam)
-    showCommandsUI(currentTeam)
+    showActionsUI(currentTeam, 'gameActions')
+    showActionsUI('None', 'playingActions')
   elseif status == "playing" then
     checkerPassScore.createButton(passParams)
     checkerPassScore.createButton(scoreParams)
     recolorButtons(currentTeam)
+    showActionsUI('None', 'gameActions')
+    showActionsUI(currentTeam, 'playingActions')
   elseif status == "scoring" then
     -- end of round, players are busy scoring
     checkerStart.createButton(countPointParams)
@@ -1482,7 +1485,25 @@ end
 
 ---------------------------------UI---------------------------------
 
-function showCommandsUI(teamColor)
+doneRotating = false
+
+function onPlayerChangeColor(playerColor)
+    doneRotating = false
+    Wait.time(setDoneRotating, 0.2)
+    Wait.time(checkDoneRotating, 0.5)
+end
+
+function setDoneRotating()
+    doneRotating = true
+end
+
+function checkDoneRotating()
+    if doneRotating then
+        updateVisibilityUI()
+    end
+end
+
+function showActionsUI(teamColor, type)
     local otherColor
     if teamColor == 'Red' then
         otherColor = 'Blue'
@@ -1490,11 +1511,11 @@ function showCommandsUI(teamColor)
         otherColor = 'Red'
     end
     if teamColor == 'None' then
-        UI.setAttribute('gameCommandsRed', 'active', 'false')
-        UI.setAttribute('gameCommandsBlue', 'active', 'false')
+        UI.setAttribute(type .. 'Red', 'active', 'false')
+        UI.setAttribute(type .. 'Blue', 'active', 'false')
     else
-        UI.setAttribute('gameCommands'..teamColor, 'active', 'true')
-        UI.setAttribute('gameCommands'..otherColor, 'active', 'false')
+        UI.setAttribute(type..teamColor, 'active', 'true')
+        UI.setAttribute(type..otherColor, 'active', 'false')
     end
     updateVisibilityUI()
 end
@@ -1510,9 +1531,10 @@ function updateVisibilityUI()
             visStrBlue = visStrBlue .. '|' .. color
         end
     end
-    UI.setAttribute('gameCommandsRed', 'visibility', visStrRed)
-    UI.setAttribute('gameCommandsBlue', 'visibility', visStrBlue)
+    UI.setAttribute('gameActionsRed', 'visibility', visStrRed)
+    UI.setAttribute('gameActionsBlue', 'visibility', visStrBlue)
 end
+
 
 function uiRotate(player, value, id)
     rotateColors(value)
@@ -1524,4 +1546,12 @@ end
 
 function uiStartTurn(player, value, id)
     startTurn(nil, player.color)
+end
+
+function uiScore(player, value, id)
+    score(nil, value)
+end
+
+function uiPass(player, value, id)
+    pass(true, value)
 end
