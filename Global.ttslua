@@ -219,6 +219,8 @@ amountToDeal = 0
 toDiscard = false
 spawningDeck = false
 
+
+
 function onSave()
   local data = {
     initialDeck = initialDeck,
@@ -1170,6 +1172,7 @@ function drawButtons()
     checkerPassScore.createButton(startTurnParams)
     checkerPassScore.createButton(rotateBackwardsParams)
     recolorButtons(currentTeam)
+    showCommandsUI(currentTeam)
   elseif status == "playing" then
     checkerPassScore.createButton(passParams)
     checkerPassScore.createButton(scoreParams)
@@ -1475,4 +1478,50 @@ function sendDiscardCards(discardedCards)
 
   local data = {["CardIds"] = discardedCards, ["SteamIds"] = steamIDs}
   WebRequest.put("https://platypuseggs.com/VerbatimService.svc/DeleteCardPlayHistories", JSON.encode(data))
+end
+
+---------------------------------UI---------------------------------
+
+function showCommandsUI(teamColor)
+    local otherColor
+    if teamColor == 'Red' then
+        otherColor = 'Blue'
+    else
+        otherColor = 'Red'
+    end
+    if teamColor == 'None' then
+        UI.setAttribute('gameCommandsRed', 'active', 'false')
+        UI.setAttribute('gameCommandsBlue', 'active', 'false')
+    else
+        UI.setAttribute('gameCommands'..teamColor, 'active', 'true')
+        UI.setAttribute('gameCommands'..otherColor, 'active', 'false')
+    end
+    updateVisibilityUI()
+end
+
+function updateVisibilityUI()
+    local colors = getSeatedPlayers()
+    local visStrRed = 'Red'
+    local visStrBlue = 'Blue'
+
+    for i, color in ipairs(colors) do
+        if Player[color].admin then
+            visStrRed = visStrRed .. '|' .. color
+            visStrBlue = visStrBlue .. '|' .. color
+        end
+    end
+    UI.setAttribute('gameCommandsRed', 'visibility', visStrRed)
+    UI.setAttribute('gameCommandsBlue', 'visibility', visStrBlue)
+end
+
+function uiRotate(player, value, id)
+    rotateColors(value)
+end
+
+function uiSwitchTurn(player, value, id)
+    switchTurn(nil, player.color)
+end
+
+function uiStartTurn(player, value, id)
+    startTurn(nil, player.color)
 end

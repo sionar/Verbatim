@@ -1,1 +1,37 @@
-<!-- UI script -->
+<TableLayout id = "gameCommandsRed" class = "gameCommandsTable">
+    <Row preferredHeight = "50">
+        <Cell class = "gameCommandsCell">
+            <Button class = "gameCommandsButton redButton" onClick="uiSwitchTurn">Switch Turns</Button>
+        </Cell>
+        <Cell class = "gameCommandsCell">
+            <Button class = "gameCommandsButton redButton" onClick="uiStartTurn">Start Turn</Button>
+        </Cell>
+    </Row>
+    <Row preferredHeight = "50">
+        <Cell class = "gameCommandsCell">
+            <Button class = "gameCommandsButton redButton" onClick="uiRotate(Red)">Rotate Seats Forwards</Button>
+        </Cell>
+        <Cell class = "gameCommandsCell">
+            <Button class = "gameCommandsButton redButton" onClick="uiRotate(RedReverse)">Rotate Seats Backwards</Button>
+        </Cell>
+    </Row>
+</TableLayout>
+
+<TableLayout id = "gameCommandsBlue" class = "gameCommandsTable">
+    <Row preferredHeight = "50">
+        <Cell class = "gameCommandsCell">
+            <Button class = "gameCommandsButton blueButton" onClick="uiSwitchTurn">Switch Turns</Button>
+        </Cell>
+        <Cell class = "gameCommandsCell">
+            <Button class = "gameCommandsButton blueButton" onClick="uiStartTurn">Start Turn</Button>
+        </Cell>
+    </Row>
+    <Row preferredHeight = "50">
+        <Cell class = "gameCommandsCell">
+            <Button class = "gameCommandsButton blueButton" onClick="uiRotate(Blue)">Rotate Seats Forwards</Button>
+        </Cell>
+        <Cell class = "gameCommandsCell">
+            <Button class = "gameCommandsButton blueButton" onClick="uiRotate(BlueReverse)">Rotate Seats Backwards</Button>
+        </Cell>
+    </Row>
+</TableLayout>
