@@ -2,6 +2,28 @@
 <Text class="teamLabel" color="#1E87FF" visibility="Blue|Pink|Purple|Brown|White" text="Team Blue"></Text>
 
 <VerticalLayout id = "gameSetupLayout" class = "setupLayout">
+    <Text class = "gameSetupTitleText" color = "#FFFFFF" text="Game Setup"></Text>
+    <HorizontalLayout class = "gameSetupRow">
+        <Text class = "gameSetupParamText" color = "#FFFFFF" text="Cards per player"></Text>
+        <InputField id = "gameSetupCardsInput" class = "gameSetupInput">6</InputField>
+    </HorizontalLayout>
+    <HorizontalLayout class = "gameSetupRow">
+        <Text class = "gameSetupParamText" color = "#FFFFFF" text="Number of cards to Discard"></Text>
+        <InputField id = "gameSetupDiscardsInput" class = "gameSetupInput">0</InputField>
+    </HorizontalLayout>
+
+    <ToggleGroup class = "gameSetupToggle">
+        <HorizontalLayout>
+            <Toggle class = "gameSetupToggleRadio">Normal Deck</Toggle>
+            <Toggle class = "gameSetupToggleRadio">Custom Deck</Toggle>
+        </HorizontalLayout>
+    </ToggleGroup>
+
+    <Text class = "gameSetupTokenText" color = "#FFFFFF" text="Custom Deck Token"></Text>
+    <InputField id = "gameSetupTokenInput1" class = "gameSetupTokenInput"></InputField>
+
+    <Button class = "gameSetupStartButton">Start Game</Button>
+
 
 </VerticalLayout>
 

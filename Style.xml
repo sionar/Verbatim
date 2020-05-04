@@ -1,6 +1,85 @@
 <Defaults>
     <Text class="teamLabel" fontSize = "36" alignment="UpperRight" offsetXY = "-275 -7"/>
 
+    <VerticalLayout class = "setupLayout"
+        height = "400"
+        width = "300"
+        offsetXY = "100 -100"
+        padding = "20 20 20 20"
+        rectAlignment = "UpperLeft"
+        childAlignment = "MiddleCenter"
+        color = "#66666640"
+        childForceExpandHeight = "false"
+        childForceExpandWidth = "false"
+        spacing = "10"
+        />
+
+    <HorizontalLayout class = "gameSetupRow"
+        preferredHeight = "30"
+        preferredWidth = "300"
+        childForceExpandHeight = "false"
+        childAlignment = "MiddleCenter"
+        />
+
+    <Text class = "gameSetupTitleText"
+        fontSize = "24"
+        preferredWidth = "300"
+        />
+
+    <Text class = "gameSetupParamText"
+        alignment = "MiddleLeft"
+        preferredWidth = "200"
+        />
+
+    <InputField class = "gameSetupInput"
+        preferredWidth = "0"
+        preferredHeight = "40"
+        width = "10"
+        fontSize = "12"
+        placeholder = "#"
+        characterValidation = "Integer"
+        color = "#4040FF40"
+        textColor = "#FFFFFF"
+        />
+
+    <ToggleGroup class = "gameSetupToggle"
+        preferredWidth = "300"
+        preferredHeight = "50"
+        toggleSelectedColor = "#40FF40"
+        />
+
+    <Toggle
+        textColor = "#FFFFFF"
+        />
+
+
+    <VerticalLayout class = "gameSetupTokenLayout"
+        height = "100"
+        />
+
+    <Text class = "gameSetupTokenText"
+        preferredHeight = "50"
+        />
+
+    <InputField class = "gameSetupTokenInput"
+        preferredHeight = "50"
+        preferredWidth = "300"
+        width = "100"
+        fontSize = "24"
+        placeholder = "Enter input token here"
+        lineType = "MultiLineNewLine"
+        color = "#4040FF20"
+        textColor = "#FFFFFF"
+        />
+
+    <Button class = "gameSetupStartButton"
+        preferredWidth = "200"
+        preferredHeight = "50"
+        fontSize = "24"
+        colors = "#4040FF80|#4040FFFF|#4040FF80|#4040FF80"
+        textColor = "#FFFFFF"
+        />
+
     <VerticalLayout class = "gameButtonsLayout"
         height = "150"
         width = "180"
@@ -21,7 +100,7 @@
 
     <VerticalLayout class = "singleButtonLayout"
         height = "50"
-        width = "200"
+        width = "150"
         rectAlignment = "LowerCenter"
         offsetXY = "0 7"
         active = "false"
