@@ -1,58 +1,53 @@
-<TableLayout id = "gameActionsRed" class = "gameActionsLayout">
-    <Row preferredHeight = "50">
-        <Cell class = "actionsCell">
-            <Button class = "redButton" onClick="uiSwitchTurn">Switch Turns</Button>
-        </Cell>
-        <Cell class = "actionsCell">
-            <Button class = "redButton" onClick="uiStartTurn">Start Turn</Button>
-        </Cell>
-    </Row>
-    <Row preferredHeight = "50">
-        <Cell class = "actionsCell">
-            <Button class = "redButton" onClick="uiRotate(Red)">Rotate Seats Forwards</Button>
-        </Cell>
-        <Cell class = "actionsCell">
-            <Button class = "redButton" onClick="uiRotate(RedReverse)">Rotate Seats Backwards</Button>
-        </Cell>
-    </Row>
-</TableLayout>
+<Text class="teamLabel" color="#DA1917" visibility="Red|Orange|Yellow|Teal|Green" text="Team Red"></Text>
+<Text class="teamLabel" color="#1E87FF" visibility="Blue|Pink|Purple|Brown|White" text="Team Blue"></Text>
 
-<TableLayout id = "gameActionsBlue" class = "gameActionsLayout">
-    <Row preferredHeight = "50">
-        <Cell class = "actionsCell">
-            <Button class = "blueButton" onClick="uiSwitchTurn">Switch Turns</Button>
-        </Cell>
-        <Cell class = "actionsCell">
-            <Button class = "blueButton" onClick="uiStartTurn">Start Turn</Button>
-        </Cell>
-    </Row>
-    <Row preferredHeight = "50">
-        <Cell class = "actionsCell">
-            <Button class = "blueButton" onClick="uiRotate(Blue)">Rotate Seats Forwards</Button>
-        </Cell>
-        <Cell class = "actionsCell">
-            <Button class = "blueButton" onClick="uiRotate(BlueReverse)">Rotate Seats Backwards</Button>
-        </Cell>
-    </Row>
-</TableLayout>
+<VerticalLayout id = "startButtonLayoutRed" class = "singleButtonLayout">
+    <Button id = "startTurnButtonRed" class = "singleButton redButton" textColor = "#FFFFFF" onClick="uiStartTurn">Start Turn</Button>
+</VerticalLayout>
 
-<TableLayout id = "playingActionsRed" class = "playingActionsLayout">
+<VerticalLayout id = "startButtonLayoutBlue" class = "singleButtonLayout">
+    <Button id = "startTurnButtonBlue" class = "singleButton blueButton" textColor = "#FFFFFF" onClick="uiStartTurn">Start Turn</Button>
+</VerticalLayout>
+
+<VerticalLayout id = "countPointsLayout" class = "singleButtonLayout">
+    <Button id = "cointPointsButton" class = "singleButton blackButton" textColor = "#FFFFFF" onClick="uiCountPoints">Count Points</Button>
+</VerticalLayout>
+
+<VerticalLayout id = "nextRoundLayout" class = "singleButtonLayout">
+    <Button id = "nextRoundButton" class = "singleButton blackButton" textColor = "#FFFFFF" onClick="uiNextRound">Next Round</Button>
+</VerticalLayout>
+
+<VerticalLayout id = "gameButtonsLayoutRed" class = "gameButtonsLayout">
+    <Button class = "actionButton redButton" onClick="uiSwitchTurn">Switch Turns</Button>
+    <Button class = "actionButton redButton" onClick="uiRotate(Red)">Rotate Seats Forwards</Button>
+    <Button class = "actionButton redButton" onClick="uiRotate(RedReverse)">Rotate Seats Backwards</Button>
+</VerticalLayout>
+
+<VerticalLayout id = "gameButtonsLayoutBlue" class = "gameButtonsLayout">
+    <Button class = "actionButton blueButton" onClick="uiSwitchTurn">Switch Turns</Button>
+    <Button class = "actionButton blueButton" onClick="uiRotate(Blue)">Rotate Seats Forwards</Button>
+    <Button class = "actionButton blueButton" onClick="uiRotate(BlueReverse)">Rotate Seats Backwards</Button>
+</VerticalLayout>
+
+<TableLayout id = "playingButtonsRed" class = "playingButtonsLayout">
     <Row preferredHeight = "50">
-        <Cell class = "actionsCell">
+        <Cell class = "buttonsCell">
             <Button class = "redButton" onClick="uiScore(Red)">Score</Button>
         </Cell>
-        <Cell class = "actionsCell">
+        <Cell class = "emptyCell"> </Cell>
+        <Cell class = "buttonsCell">
             <Button class = "redButton" onClick="uiPass(Red)">Pass</Button>
         </Cell>
     </Row>
 </TableLayout>
 
-<TableLayout id = "playingActionsBlue" class = "playingActionsLayout">
+<TableLayout id = "playingButtonsBlue" class = "playingButtonsLayout">
     <Row preferredHeight = "50">
-        <Cell class = "actionsCell">
+        <Cell class = "buttonsCell">
             <Button class = "blueButton" onClick="uiScore(Blue)">Score</Button>
         </Cell>
-        <Cell class = "actionsCell">
+        <Cell class = "emptyCell"> </Cell>
+        <Cell class = "buttonsCell">
             <Button class = "blueButton" onClick="uiPass(Blue)">Pass</Button>
         </Cell>
     </Row>

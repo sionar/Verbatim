@@ -1172,25 +1172,34 @@ function drawButtons()
     checkerPassScore.createButton(startTurnParams)
     checkerPassScore.createButton(rotateBackwardsParams)
     recolorButtons(currentTeam)
-    showActionsUI(currentTeam, 'gameActions')
-    showActionsUI('None', 'playingActions')
+    showButtonsUI(currentTeam, 'gameButtonsLayout')
+    showButtonsUI(currentTeam, 'startButtonLayout')
+    showButtonsUI('None', 'playingButtons')
+    UI.setAttribute('nextRoundLayout', 'active', 'false')
   elseif status == "playing" then
     checkerPassScore.createButton(passParams)
     checkerPassScore.createButton(scoreParams)
     recolorButtons(currentTeam)
-    showActionsUI('None', 'gameActions')
-    showActionsUI(currentTeam, 'playingActions')
+    showButtonsUI('None', 'gameButtonsLayout')
+    showButtonsUI('None', 'startButtonLayout')
+    showButtonsUI(currentTeam, 'playingButtons')
   elseif status == "scoring" then
     -- end of round, players are busy scoring
     checkerStart.createButton(countPointParams)
     --recolorButtons(currentTeam)
+    showButtonsUI('None', 'playingButtons')
+    UI.setAttribute('countPointsLayout', 'active', 'true')
   elseif status == "ready" then
     -- players are done scoring and ready to go to the next round
     checkerStart.createButton(endRoundParams)
     checkerStart.editButton({index = 0, width = switchTurnParams.width, height = switchTurnParams.height, font_size = switchTurnParams.font_size})
+    UI.setAttribute('countPointsLayout', 'active', 'false')
+    UI.setAttribute('nextRoundLayout', 'active', 'true')
   elseif status == "end" then
     --checkerStart.createButton(newGameParams)
     checkerStart.createButton(countPointParams)
+    showButtonsUI('None', 'playingButtons')
+    UI.setAttribute('countPointsLayout', 'active', 'true')
   elseif status == "new" then
     checkerStart.createButton(newGameParams)
     checkerStart.createButton(spawnParams)
@@ -1198,6 +1207,7 @@ function drawButtons()
     local params = deepCopy(discardParams)
     if toDiscard then params.label = "[X] Discard Cards" end
     checkerStart.createButton(params)
+    UI.setAttribute('countPointsLayout', 'active', 'false')
   end
 end
 
@@ -1503,7 +1513,7 @@ function checkDoneRotating()
     end
 end
 
-function showActionsUI(teamColor, type)
+function showButtonsUI(teamColor, type)
     local otherColor
     if teamColor == 'Red' then
         otherColor = 'Blue'
@@ -1524,6 +1534,7 @@ function updateVisibilityUI()
     local colors = getSeatedPlayers()
     local visStrRed = 'Red'
     local visStrBlue = 'Blue'
+    local visStrAll = 'Red|Blue'
 
     for i, color in ipairs(colors) do
         if Player[color].admin then
@@ -1531,8 +1542,12 @@ function updateVisibilityUI()
             visStrBlue = visStrBlue .. '|' .. color
         end
     end
-    UI.setAttribute('gameActionsRed', 'visibility', visStrRed)
-    UI.setAttribute('gameActionsBlue', 'visibility', visStrBlue)
+    UI.setAttribute('startButtonLayoutRed', 'visibility', visStrRed)
+    UI.setAttribute('startButtonLayoutBlue', 'visibility', visStrBlue)
+    UI.setAttribute('gameButtonsLayoutRed', 'visibility', visStrRed)
+    UI.setAttribute('gameButtonsLayoutBlue', 'visibility', visStrBlue)
+    UI.setAttribute('checkPointsLayout', 'visibility', visStrAll)
+    UI.setAttribute('nextRoundLayout', 'visibility', visStrAll)
 end
 
 
@@ -1554,4 +1569,12 @@ end
 
 function uiPass(player, value, id)
     pass(true, value)
+end
+
+function uiCountPoints(player, value, id)
+    countPoints(nil, player.color)
+end
+
+function uiNextRound(player, value, id)
+    endRound(nil, player.color)
 end
