@@ -1,6 +1,11 @@
 <Text class="teamLabel" color="#DA1917" visibility="Red|Orange|Yellow|Teal|Green" text="Team Red"></Text>
 <Text class="teamLabel" color="#1E87FF" visibility="Blue|Pink|Purple|Brown|White" text="Team Blue"></Text>
 
+<VerticalLayout id = "gameSetupLayout" class = "setupLayout">
+
+</VerticalLayout>
+
+
 <VerticalLayout id = "startButtonLayoutRed" class = "singleButtonLayout">
     <Button id = "startTurnButtonRed" class = "singleButton redButton" textColor = "#FFFFFF" onClick="uiStartTurn">Start Turn</Button>
 </VerticalLayout>
@@ -30,7 +35,7 @@
 </VerticalLayout>
 
 <TableLayout id = "playingButtonsRed" class = "playingButtonsLayout">
-    <Row preferredHeight = "50">
+    <Row>
         <Cell class = "buttonsCell">
             <Button class = "redButton" onClick="uiScore(Red)">Score</Button>
         </Cell>
@@ -42,13 +47,13 @@
 </TableLayout>
 
 <TableLayout id = "playingButtonsBlue" class = "playingButtonsLayout">
-    <Row preferredHeight = "50">
+    <Row>
         <Cell class = "buttonsCell">
-            <Button class = "blueButton" onClick="uiScore(Blue)">Score</Button>
+            <Button class = "playingButton blueButton" onClick="uiScore(Blue)">Score</Button>
         </Cell>
         <Cell class = "emptyCell"> </Cell>
         <Cell class = "buttonsCell">
-            <Button class = "blueButton" onClick="uiPass(Blue)">Pass</Button>
+            <Button class = "playingButton blueButton" onClick="uiPass(Blue)">Pass</Button>
         </Cell>
     </Row>
 </TableLayout>
