@@ -1,10 +1,10 @@
 <Defaults>
     <Text class="teamLabel" fontSize = "36" alignment="UpperRight" offsetXY = "-275 -7"/>
 
-    <VerticalLayout class = "setupLayout"
-        height = "400"
+    <VerticalLayout class = "setupLayoutNormal"
+        height = "350"
         width = "300"
-        offsetXY = "100 -100"
+        offsetXY = "150 -50"
         padding = "20 20 20 20"
         rectAlignment = "UpperLeft"
         childAlignment = "MiddleCenter"
@@ -12,6 +12,21 @@
         childForceExpandHeight = "false"
         childForceExpandWidth = "false"
         spacing = "10"
+        active = "true"
+        />
+
+    <VerticalLayout class = "setupLayoutCustom"
+        height = "440"
+        width = "300"
+        offsetXY = "150 -50"
+        padding = "20 20 20 20"
+        rectAlignment = "UpperLeft"
+        childAlignment = "MiddleCenter"
+        color = "#66666640"
+        childForceExpandHeight = "false"
+        childForceExpandWidth = "false"
+        spacing = "10"
+        active = "false"
         />
 
     <HorizontalLayout class = "gameSetupRow"
@@ -32,7 +47,7 @@
         />
 
     <InputField class = "gameSetupInput"
-        preferredWidth = "0"
+        preferredWidth = "30"
         preferredHeight = "40"
         width = "10"
         fontSize = "12"
@@ -42,10 +57,11 @@
         textColor = "#FFFFFF"
         />
 
-    <ToggleGroup class = "gameSetupToggle"
+    <HorizontalLayout class = "gameSetupDeckLayout"
         preferredWidth = "300"
         preferredHeight = "50"
-        toggleSelectedColor = "#40FF40"
+        childForceExpandWidth = "false"
+        childForceExpandHeight = "false"
         />
 
     <Toggle
@@ -58,13 +74,12 @@
         />
 
     <Text class = "gameSetupTokenText"
-        preferredHeight = "50"
+        preferredHeight = "20"
         />
 
     <InputField class = "gameSetupTokenInput"
         preferredHeight = "50"
-        preferredWidth = "300"
-        width = "100"
+        preferredWidth = "250"
         fontSize = "24"
         placeholder = "Enter input token here"
         lineType = "MultiLineNewLine"
@@ -72,10 +87,17 @@
         textColor = "#FFFFFF"
         />
 
-    <Button class = "gameSetupStartButton"
+    <Button class = "gameSetupDeckButton"
         preferredWidth = "200"
         preferredHeight = "50"
-        fontSize = "24"
+        fontSize = "16"
+        textColor = "#FFFFFF"
+        />
+
+    <Button class = "gameSetupButton"
+        preferredWidth = "200"
+        preferredHeight = "50"
+        fontSize = "16"
         colors = "#4040FF80|#4040FFFF|#4040FF80|#4040FF80"
         textColor = "#FFFFFF"
         />

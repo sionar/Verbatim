@@ -222,8 +222,8 @@ spawningDeck = false
 
 
 function onSave()
+
   local data = {
-    initialDeck = initialDeck,
     round = round,
     status = status,
     currentTeam = currentTeam,
@@ -439,16 +439,17 @@ function start(obj, color)
     params.scale = handScale.large
     Player["Blue"].setHandTransform(params)
 
-    printToAll("Cards dealt, each player must discard 2 cards and keep the remaining cards in their hand. Press 'Done Discarding' once everyone is ready", {1,1,0})
+    printToAll("Cards dealt, each player must discard " .. uiDiscardInput .. " cards and keep the remaining cards in their hand. Press 'Done Discarding' once everyone is ready", {1,1,0})
     dealCards()
     status = "discarding" drawButtons()
   else
 
-    if playerCount < 6 then
-      amountToDeal = 6
-    else
-      amountToDeal = 5
-    end
+    -- if playerCount < 6 then
+    --   amountToDeal = 6
+    -- else
+    --   amountToDeal = 5
+    -- end
+    amountToDeal = uiCardsInput
 
     local amount
     if #getSeatedPlayers() < 6 then amount = 4 else amount = 3 end
@@ -488,7 +489,10 @@ function getInitialDeck()
     printToAll("Error retrieving deck. Please ensure you have spawned a deck and it is placed on the pedestal near the timer.", textColor.Red)
     return false
   end
-
+  if tonumber(uiDiscardInput) > 0 then
+      UI.setAttribute('gameStart'..uiDeckType, 'text', 'Done Discarding')
+      UI.setAttribute('gameStart'..uiDeckType, 'textColor', '#FFFFFF')
+  end
   return true
 end
 
@@ -510,7 +514,7 @@ function checkReady(obj, color)
   local ready = true
   for _, color in pairs(colorsDiscarding) do
     local hand = Player[color].getHandObjects()
-    if #hand != amountToDeal - 2 then
+    if #hand != amountToDeal - uiDiscardInput then
       ready = false
       break
     end
@@ -557,7 +561,8 @@ function checkReady(obj, color)
     Wait.time(function() searchingForDeck = false end, 1)
 
     startTasks()
-
+    UI.setAttribute('gameStart'..uiDeckType, 'text', 'Start Game')
+    UI.setAttribute('gameStart'..uiDeckType, 'textColor', '#FFFFFF')
   else
     printToAll("Incorrect card count. Please ensure everyone has discarded exactly 2 cards and has the the remaining cards in their hand", textColor["Red"])
   end
@@ -1176,6 +1181,7 @@ function drawButtons()
     showButtonsUI(currentTeam, 'startButtonLayout')
     showButtonsUI('None', 'playingButtons')
     UI.setAttribute('nextRoundLayout', 'active', 'false')
+    UI.setAttribute('gameSetupLayout'..uiDeckType, 'active', 'false')
   elseif status == "playing" then
     checkerPassScore.createButton(passParams)
     checkerPassScore.createButton(scoreParams)
@@ -1208,6 +1214,7 @@ function drawButtons()
     if toDiscard then params.label = "[X] Discard Cards" end
     checkerStart.createButton(params)
     UI.setAttribute('countPointsLayout', 'active', 'false')
+    UI.setAttribute('gameSetupLayout'..uiDeckType, 'active', 'true')
   end
 end
 
@@ -1496,6 +1503,10 @@ end
 ---------------------------------UI---------------------------------
 
 doneRotating = false
+uiCardsInput = 6
+uiDiscardInput = 0
+uiDeckType = 'Normal'
+uiInputToken = ''
 
 function onPlayerChangeColor(playerColor)
     doneRotating = false
@@ -1535,11 +1546,13 @@ function updateVisibilityUI()
     local visStrRed = 'Red'
     local visStrBlue = 'Blue'
     local visStrAll = 'Red|Blue'
+    local visAdmin = 'Black'
 
     for i, color in ipairs(colors) do
         if Player[color].admin then
             visStrRed = visStrRed .. '|' .. color
             visStrBlue = visStrBlue .. '|' .. color
+            visAdmin = visAdmin .. '|' .. color
         end
     end
     UI.setAttribute('startButtonLayoutRed', 'visibility', visStrRed)
@@ -1548,6 +1561,8 @@ function updateVisibilityUI()
     UI.setAttribute('gameButtonsLayoutBlue', 'visibility', visStrBlue)
     UI.setAttribute('checkPointsLayout', 'visibility', visStrAll)
     UI.setAttribute('nextRoundLayout', 'visibility', visStrAll)
+    UI.setAttribute('gameSetupLayoutNormal', 'visibility', visAdmin)
+    UI.setAttribute('gameSetupLayoutCustom', 'visibility', visAdmin)
 end
 
 
@@ -1577,4 +1592,100 @@ end
 
 function uiNextRound(player, value, id)
     endRound(nil, player.color)
+end
+
+function uiSetupCardsInput(player, value, id)
+    uiCardsInput = value
+end
+
+function uiSetupDiscardInput(player, value, id)
+    uiDiscardInput = value
+    if tonumber(uiDiscardInput) == 0 then
+        toDiscard = false
+    else
+        toDiscard = true
+    end
+end
+
+function uiSetupNormalDeckButton(player, value, id)
+    if uiDeckType == 'Custom' then
+        UI.setAttribute('gameSetupLayoutNormal', 'active', 'true')
+        UI.setAttribute('gameSetupLayoutCustom', 'active', 'false')
+        uiDeckType = 'Normal'
+    end
+end
+
+function uiSetupCustomDeckButton(player, value, id)
+    if uiDeckType == 'Normal' then
+        UI.setAttribute('gameSetupLayoutNormal', 'active', 'false')
+        UI.setAttribute('gameSetupLayoutCustom', 'active', 'true')
+        uiDeckType = 'Custom'
+    end
+end
+
+function uiSetupDeckTypeToggle(player, value, id)
+    if value == 'True' then
+        uiDeckType = 'Normal'
+    else
+        uiDeckType = 'Custom'
+    end
+end
+
+function uiSetupTokenInput(player, value, id)
+    uiInputToken = value
+end
+
+function uiSetupSpawnButton(player, value, id)
+    uiSpawnDeck(nil, player.color, nil, uiInputToken)
+end
+
+function uiSpawnDeck(btn_object, color, alt_click, token)
+    if not Player[color].admin then
+        return
+    end
+
+    if spawningDeck then
+        broadcastToColor("Please wait for the current deck to finish loading", color, textColor["Red"])
+        return
+    end
+
+    if uiDeckType == 'Custom' and (token == nil or token == "") then
+        printToAll("No token input found, please input a token and try again", textColor["Red"])
+        return
+    end
+    amountToDeal = tonumber(uiCardsInput) + tonumber(uiDiscardInput)
+    spawningDeck = true
+    Wait.time(function() spawnDeckCooldown = spawnDeckCooldown - 1 end, 1, 3)
+
+    for _, obj in pairs(initialDeckZone.getObjects()) do
+        if obj.tag == "Card" or obj.tag == "Deck" then
+          obj.destruct()
+        end
+    end
+
+    -- less than 6 players = 4 cards each
+    -- more than 5 = 3 cards each
+    -- players will discard 2 cards each, so raise the number of cards per player by 2
+    playerCount = #getSeatedPlayers()
+    local cardCount
+
+    cardCount = (uiCardsInput + uiDiscardInput) * playerCount
+    if cardCount > 70 then
+        cardCount = 70
+    end
+
+    if uiInputToken == '' then
+        getNewDeck(cardCount, token)
+    else
+        getNewDeck(cardCount, nil)
+    end
+end
+
+function uiSetupStartButton(player, value, id)
+    local label = UI.getAttribute('gameStart'..uiDeckType, 'text')
+    if label == 'Start Game' then
+        start(nil, player.color)
+    elseif label == 'Done Discarding' then
+        checkReady(nil, player.color)
+    end
 end
