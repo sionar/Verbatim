@@ -1,7 +1,7 @@
 <Text class="teamLabel" color="#DA1917" visibility="Red|Orange|Yellow|Teal|Green" text="Team Red"></Text>
 <Text class="teamLabel" color="#1E87FF" visibility="Blue|Pink|Purple|Brown|White" text="Team Blue"></Text>
 
-<VerticalLayout id = "gameSetupLayoutNormal" class = "setupLayoutNormal">
+<VerticalLayout id = "gameSetupNormalLayout" class = "setupLayoutNormal">
     <Text class = "gameSetupTitleText" color = "#FFFFFF" text="Game Setup"></Text>
     <HorizontalLayout class = "gameSetupRow">
         <Text class = "gameSetupParamText" color = "#FFFFFF" text="Number of cards per player"></Text>
@@ -18,10 +18,11 @@
     </HorizontalLayout>
 
     <Button class = "gameSetupButton" onClick="uiSetupSpawnButton">Spawn Deck</Button>
+    <Button class = "gameSetupButton" onClick="uiShuffleSeats">Shuffle Seats</Button>
     <Button class = "gameSetupButton" id = "gameStartNormal" onClick="uiSetupStartButton">Start Game</Button>
 </VerticalLayout>
 
-<VerticalLayout id = "gameSetupLayoutCustom" class = "setupLayoutCustom">
+<VerticalLayout id = "gameSetupCustomLayout" class = "setupLayoutCustom">
     <Text class = "gameSetupTitleText" color = "#FFFFFF" text="Game Setup"></Text>
     <HorizontalLayout class = "gameSetupRow">
         <Text class = "gameSetupParamText" color = "#FFFFFF" text="Number of cards per player"></Text>
@@ -41,6 +42,7 @@
     <InputField id = "gameSetupTokenInput" class = "gameSetupTokenInput" onEndEdit = "uiSetupTokenInput"></InputField>
 
     <Button class = "gameSetupButton" onClick="uiSetupSpawnButton">Spawn Deck</Button>
+    <Button class = "gameSetupButton" onClick="uiShuffleSeats">Shuffle Seats</Button>
     <Button class = "gameSetupButton" id = "gameStartCustom" onClick="uiSetupStartButton">Start Game</Button>
 </VerticalLayout>
 
@@ -62,15 +64,17 @@
 </VerticalLayout>
 
 <VerticalLayout id = "gameButtonsLayoutRed" class = "gameButtonsLayout">
-    <Button class = "actionButton redButton" onClick="uiSwitchTurn">Switch Turns</Button>
+    <Button class = "actionButton redButton" onClick="uiSwitchTurn">Switch Turn</Button>
     <Button class = "actionButton redButton" onClick="uiRotate(Red)">Rotate Seats Forwards</Button>
     <Button class = "actionButton redButton" onClick="uiRotate(RedReverse)">Rotate Seats Backwards</Button>
+    <Button class = "actionButton redButton" onClick="uiToggleModifyScores">Modify Scores</Button>
 </VerticalLayout>
 
 <VerticalLayout id = "gameButtonsLayoutBlue" class = "gameButtonsLayout">
-    <Button class = "actionButton blueButton" onClick="uiSwitchTurn">Switch Turns</Button>
+    <Button class = "actionButton blueButton" onClick="uiSwitchTurn">Switch Turn</Button>
     <Button class = "actionButton blueButton" onClick="uiRotate(Blue)">Rotate Seats Forwards</Button>
     <Button class = "actionButton blueButton" onClick="uiRotate(BlueReverse)">Rotate Seats Backwards</Button>
+    <Button class = "actionButton blueButton" onClick="uiToggleModifyScores">Modify Scores</Button>
 </VerticalLayout>
 
 <TableLayout id = "playingButtonsRed" class = "playingButtonsLayout">
@@ -94,5 +98,23 @@
         <Cell class = "buttonsCell">
             <Button class = "playingButton blueButton" onClick="uiPass(Blue)">Pass</Button>
         </Cell>
+    </Row>
+</TableLayout>
+
+<TableLayout id = "modifyScoreLayout" class = "modifyScoreLayout">
+    <Row class = "modifyScoreRow1">
+        <Cell class = "modifyScoreLabelTextCell"><Text class = "modifyScoreLabelText" text="Modify Scores"></Text></Cell>
+    </Row>
+    <Row class = "modifyScoreRow2">
+        <Cell class = "modifyScoreTeamTextCell"><Text class = "modifyScoreRedTeamText" text="Red Team"></Text></Cell>
+        <Cell class = "modifyScoreTeamTextCell"><Text class = "modifyScoreBlueTeamText" text="Blue Team"></Text></Cell>
+    </Row>
+    <Row class = "modifyScoreRow3">
+        <Cell class = "modifyScoreInputCell"><InputField class = "modifyScoreInput" id = "modifyScoreInputRed" onEndEdit = "uiModifyScoreInputRed"></InputField></Cell>
+        <Cell class = "modifyScoreInputCell"><InputField class = "modifyScoreInput" id = "modifyScoreInputBlue" onEndEdit = "uiModifyScoreInputBlue"></InputField></Cell>
+    </Row>
+    <Row class = "modifyScoreRow4">
+        <Cell class = "modifyScoreSaveButtonCell"><Button id = "modifyScoreSaveButton" class = "modifyScoreSaveButton" onClick="uiUpdateScores">Save</Button></Cell>
+        <Cell class = "modifyScoreCancelButtonCell"><Button id = "modifyScoreCancelButton" class = "modifyScoreSaveButton" onClick="uiToggleModifyScores">Cancel</Button></Cell>
     </Row>
 </TableLayout>

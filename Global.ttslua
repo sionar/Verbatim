@@ -1173,7 +1173,7 @@ function drawButtons()
     showButtonsUI(currentTeam, 'startButtonLayout')
     showButtonsUI('None', 'playingButtons')
     UI.setAttribute('nextRoundLayout', 'active', 'false')
-    UI.setAttribute('gameSetupLayout'..uiDeckType, 'active', 'false')
+    UI.setAttribute('gameSetup'..uiDeckType..'Layout', 'active', 'false')
   elseif status == "playing" then
     checkerPassScore.createButton(passParams)
     checkerPassScore.createButton(scoreParams)
@@ -1206,7 +1206,7 @@ function drawButtons()
     if toDiscard then params.label = "[X] Discard Cards" end
     checkerStart.createButton(params)
     UI.setAttribute('countPointsLayout', 'active', 'false')
-    UI.setAttribute('gameSetupLayout'..uiDeckType, 'active', 'true')
+    UI.setAttribute('gameSetup'..uiDeckType..'Layout', 'active', 'true')
   end
 end
 
@@ -1286,12 +1286,9 @@ function shuffleTable(tab)
     return tab
 end
 
-shufflePlayersDebounce = false
-
 function shufflePlayers(colour)
     if #getSeatedPlayers() < 2 then printToAll("Shuffle Players: [808080]".. Player[colour].steam_name ..", there must be more than one player for shuffling to work.", textColour) return end
-    -- if Player["Black"].seated == true then printToAll("Please remove Player Black for shuffling to work.", textColour) return end
-    -- shufflePlayersDebounce = true
+    if Player["Black"].seated == true then printToAll("Please remove Player Black for shuffling to work.", textColour) return end
 
     printToAll("Shuffle Players: ".. Player[colour].steam_name .. " initiated shuffling.", textColour)
 
@@ -1305,100 +1302,6 @@ function shufflePlayers(colour)
         Player[ranColours[i]].changeColor(ranColours[i-1])
     end
     Player['Black'].changeColor(ranColours[#ranColours])
-
-    -- for i, v in pairs(getSeatedPlayers()) do
-    --     seatedPlayers[v] = {}
-    --     seatedPlayers[v].target = ranColours[i]
-    --     seatedPlayers[v].myColour = v
-    --     --printToAll(Player[v].steam_name .. "(".. v ..") -> ".. ranColours[i], {1, 1, 1})
-    --     if seatedPlayers[v].target == v then
-    --         seatedPlayers[v].prevMoved = true
-    --         seatedPlayers[v].moved = true
-    --     else
-    --         seatedPlayers[v].prevMoved = false
-    --         seatedPlayers[v].moved = false
-    --     end
-    -- end
-    --
-    -- --START SHUFFLING PLAYERS.
-    --
-    -- function shuffleDelay()
-    --
-    --     for timeout = 1, 50 do
-    --
-    --         --GO THROUGH SEATED PLAYERS. IF THEY HAVEN'T MOVED, CHECK IF THEY CAN BE MOVED.
-    --         for i, v in pairs(seatedPlayers) do
-    --             --print("Test")
-    --             if v.moved == false then
-    --                 if Player[v.target].seated == false then
-    --                     local myC = v.myColour
-    --                     if Player[myC].seated == true then
-    --                         --print("Moving player ".. myC)
-    --                         Player[myC]:changeColor(v.target)
-    --                         while Player[myC].seated == true and Player[v.target].seated == false do
-    --                             coroutine.yield()
-    --                         end
-    --                         v.myColour = v.target
-    --                         v.moved = true
-    --                     else
-    --                         table.remove(seatedPlayers, i)
-    --                     end
-    --                 end
-    --             end
-    --         end
-    --
-    --         local checkIfSame = true
-    --         for _, v in pairs(seatedPlayers) do
-    --             if v.prevMoved ~= v.moved then
-    --                 checkIfSame = false
-    --                 break
-    --             end
-    --         end
-    --
-    --         if checkIfSame == true then
-    --             --print("Is same.")
-    --             local allNonMovedPlayers = {}
-    --             for i, v in pairs(seatedPlayers) do
-    --                 if v.moved == false then
-    --                     table.insert(allNonMovedPlayers, v)
-    --                 end
-    --             end
-    --
-    --             if #allNonMovedPlayers ~= 0 then
-    --                 local lastPlayer = allNonMovedPlayers[#allNonMovedPlayers]
-    --                 Player[lastPlayer.myColour]:changeColor("Black")
-    --                 lastPlayer.myColour = "Black"
-    --                 while Player["Black"].seated == false do
-    --                     coroutine.yield()
-    --                 end
-    --             end
-    --
-    --         end
-    --
-    --         local count1, count2 = 0, 0
-    --         for _, v in pairs(seatedPlayers) do
-    --             count1 = count1 + 1
-    --             if v.moved == true then
-    --                 count2 = count2 + 1
-    --             end
-    --         end
-    --
-    --         if count1 == count2 then break end
-    --
-    --         for _, v in pairs(seatedPlayers) do
-    --             v.prevMoved = v.moved
-    --         end
-    --
-    --         coroutine.yield()
-    --     end
-    --
-    --     shufflePlayersDebounce = false
-    --
-    --     return 1
-    -- end
-    --
-    -- startLuaCoroutine(self, "shuffleDelay")
-
 end
 
 function getNewDeck(cardAmount, token)
@@ -1498,6 +1401,9 @@ uiCardsInput = 6
 uiDiscardInput = 0
 uiDeckType = 'Normal'
 uiInputToken = ''
+uiModifyScoreRed = 0
+uiModifyScoreBlue = 0
+
 
 function onPlayerChangeColor(playerColor)
     doneRotating = false
@@ -1552,8 +1458,9 @@ function updateVisibilityUI()
     UI.setAttribute('gameButtonsLayoutBlue', 'visibility', visStrBlue)
     UI.setAttribute('checkPointsLayout', 'visibility', visStrAll)
     UI.setAttribute('nextRoundLayout', 'visibility', visStrAll)
-    UI.setAttribute('gameSetupLayoutNormal', 'visibility', visAdmin)
-    UI.setAttribute('gameSetupLayoutCustom', 'visibility', visAdmin)
+    UI.setAttribute('gameSetupNormalLayout', 'visibility', visAdmin)
+    UI.setAttribute('gameSetupCustomLayout', 'visibility', visAdmin)
+    UI.setAttribute('modifyScoreLayout', 'visibility', visAdmin)
 end
 
 
@@ -1600,16 +1507,16 @@ end
 
 function uiSetupNormalDeckButton(player, value, id)
     if uiDeckType == 'Custom' then
-        UI.setAttribute('gameSetupLayoutNormal', 'active', 'true')
-        UI.setAttribute('gameSetupLayoutCustom', 'active', 'false')
+        UI.setAttribute('gameSetupNormalLayout', 'active', 'true')
+        UI.setAttribute('gameSetupCustomLayout', 'active', 'false')
         uiDeckType = 'Normal'
     end
 end
 
 function uiSetupCustomDeckButton(player, value, id)
     if uiDeckType == 'Normal' then
-        UI.setAttribute('gameSetupLayoutNormal', 'active', 'false')
-        UI.setAttribute('gameSetupLayoutCustom', 'active', 'true')
+        UI.setAttribute('gameSetupNormalLayout', 'active', 'false')
+        UI.setAttribute('gameSetupCustomLayout', 'active', 'true')
         uiDeckType = 'Custom'
     end
 end
@@ -1708,7 +1615,7 @@ function fetchCallback(req)
             table.insert(tab.children, entry)
         end
         for k,v in pairs(xml) do
-            if v.attributes.id == 'gameSetupLayoutCustom' then
+            if v.attributes.id == 'gameSetupCustomLayout' then
                 v.children[5] = tab
             end
         end
@@ -1725,4 +1632,43 @@ function uiDecklistDropdown(player, value, id)
             break
         end
     end
+end
+
+function uiShuffleSeats(player, value, id)
+    shufflePlayers(player.color)
+end
+
+function uiToggleModifyScores(player, value, id)
+    local vis = UI.getAttribute('modifyScoreLayout', 'active')
+    if vis == 'false' then
+        uiModifyScoreRed = points['Red']
+        uiModifyScoreBlue = points['Blue']
+        UI.setAttribute('modifyScoreInputRed', 'text', points['Red'])
+        UI.setAttribute('modifyScoreInputBlue', 'text', points['Blue'])
+        UI.setAttribute('modifyScoreLayout', 'active', 'true')
+    else
+        UI.setAttribute('modifyScoreLayout', 'active', 'false')
+    end
+end
+
+function uiModifyScoreInputRed(player, value, id)
+    uiModifyScoreRed = tonumber(value)
+end
+
+function uiModifyScoreInputBlue(player, value, id)
+    uiModifyScoreBlue = tonumber(value)
+end
+
+function uiUpdateScores(player, value, id)
+    if (points['Red'] ~= uiModifyScoreRed) then
+        printToAll('[DA1917]Red team\'s[-] points have been adjusted from [E7E52C]' .. points['Red'] .. '[-] to [E7E52C]' .. uiModifyScoreRed .. '[-].')
+    end
+    if (points['Blue'] ~= uiModifyScoreBlue) then
+        printToAll('[1E87FF]Blue team\'s[-] points have been adjusted from [E7E52C]' .. points['Blue'] .. '[-] to [E7E52C]' .. uiModifyScoreBlue .. '[-].')
+    end
+
+    points['Red'] = uiModifyScoreRed
+    points['Blue'] = uiModifyScoreBlue
+    updatePoints()
+    UI.setAttribute('modifyScoreLayout', 'active', 'false')
 end

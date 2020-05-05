@@ -2,7 +2,7 @@
     <Text class="teamLabel" fontSize = "36" alignment="UpperRight" offsetXY = "-275 -7"/>
 
     <VerticalLayout class = "setupLayoutNormal"
-        height = "350"
+        height = "400"
         width = "300"
         offsetXY = "150 -50"
         padding = "20 20 20 20"
@@ -16,7 +16,7 @@
         />
 
     <VerticalLayout class = "setupLayoutCustom"
-        height = "500"
+        height = "550"
         width = "300"
         offsetXY = "150 -50"
         padding = "20 20 20 20"
@@ -117,6 +117,38 @@
         visibility = ""
         active = "false"
         />
+
+    <TableLayout class = "modifyScoreLayout"
+        height = "150"
+        width = "180"
+        rectAlignment = "LowerRight"
+        offsetXY = "-280 7"
+        visibility = ""
+        active = "false"
+        rowBackgroundColor = "#66666640"
+        />
+
+    <Row class = "modifyScoreRow1" preferredHeight = "30"/>
+    <Row class = "modifyScoreRow2" preferredHeight = "30"/>
+    <Row class = "modifyScoreRow3" preferredHeight = "60"/>
+    <Row class = "modifyScoreRow4" preferredHeight = "30"/>
+
+    <Cell class =  "modifyScoreLabelTextCell" dontUseTableCellBackground = "true" columnSpan = "2"/>
+    <Cell class =  "modifyScoreTeamTextCell" dontUseTableCellBackground = "true" columnSpan = "1"/>
+    <Cell class =  "modifyScoreInputCell" dontUseTableCellBackground = "true" />
+    <Cell class =  "modifyScoreSaveButtonCell" dontUseTableCellBackground = "true" columnSpan = "1"/>
+    <Cell class =  "modifyScoreCancelButtonCell" dontUseTableCellBackground = "true" columnSpan = "1"/>
+
+    <Text class = "modifyScoreLabelText" color="#FFFFFF"/>
+    <Text class = "modifyScoreRedTeamText" color="#DA1917"/>
+    <Text class = "modifyScoreBlueTeamText" color="#1E87FF"/>
+    <InputField class = "modifyScoreInput"
+        colors="#66666640|#66666680|#66666680|#66666680"
+        textColor = "#FFFFFF"
+        placeholder = "#"
+        fontSize = "32"
+        />
+    <Button class = "modifyScoreSaveButton" colors="#66666640|#66666680|#66666680|#66666680" textColor = "#FFFFFF"/>
 
     <TableLayout class = "playingButtonsLayout"
         height = "100"
