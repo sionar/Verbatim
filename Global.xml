@@ -1,15 +1,21 @@
-<Text class="teamLabel" color="#DA1917" visibility="Red|Orange|Yellow|Teal|Green" text="Team Red"></Text>
-<Text class="teamLabel" color="#1E87FF" visibility="Blue|Pink|Purple|Brown|White" text="Team Blue"></Text>
+<Text class = "teamLabel" color = "#DA1917" visibility = "Red|Orange|Yellow|Teal|Green" text = "Team Red"></Text>
+<Text class = "teamLabel" color = "#1E87FF" visibility = "Blue|Pink|Purple|Brown|White" text = "Team Blue"></Text>
+<Text class = "timeText" id = "timeText" color="#DA1917" text="60"></Text>
+<HorizontalLayout class = "timeButtonsLayout" id = "timeButtonsLayout">
+    <Button class = "timeButton blackButton" id = "uiToggleTimeButton" onClick="uiToggleTime" text = "Pause Timer"></Button>
+    <Button class = "timeButton blackButton" onClick="uiResetTime" text = "Reset Timer"></Button>
+</HorizontalLayout>
+
 
 <VerticalLayout id = "gameSetupNormalLayout" class = "setupLayoutNormal">
     <Text class = "gameSetupTitleText" color = "#FFFFFF" text="Game Setup"></Text>
     <HorizontalLayout class = "gameSetupRow">
         <Text class = "gameSetupParamText" color = "#FFFFFF" text="Number of cards per player"></Text>
-        <InputField id = "gameSetupCardsInput" class = "gameSetupInput" onEndEdit = "uiSetupCardsInput">6</InputField>
+        <InputField id = "gameSetupCardsInput" class = "gameSetupInput" onEndEdit = "uiSetupCardsInput" tooltip = "Set how many cards each player should have after they are done discarding.">6</InputField>
     </HorizontalLayout>
     <HorizontalLayout class = "gameSetupRow">
         <Text class = "gameSetupParamText" color = "#FFFFFF" text="Number of cards to discard"></Text>
-        <InputField id = "gameSetupDiscardsInput" class = "gameSetupInput" onEndEdit = "uiSetupDiscardInput">0</InputField>
+        <InputField id = "gameSetupDiscardsInput" class = "gameSetupInput" onEndEdit = "uiSetupDiscardInput" tooltip = "Set how many cards each player should discard.">0</InputField>
     </HorizontalLayout>
 
     <HorizontalLayout class = "gameSetupDeckLayout">
@@ -26,11 +32,11 @@
     <Text class = "gameSetupTitleText" color = "#FFFFFF" text="Game Setup"></Text>
     <HorizontalLayout class = "gameSetupRow">
         <Text class = "gameSetupParamText" color = "#FFFFFF" text="Number of cards per player"></Text>
-        <InputField id = "gameSetupCardsInput" class = "gameSetupInput" onEndEdit = "uiSetupCardsInput">6</InputField>
+        <InputField id = "gameSetupCardsInput" class = "gameSetupInput" onEndEdit = "uiSetupCardsInput" tooltip = "Set how many cards each player should have after they are done discarding.">6</InputField>
     </HorizontalLayout>
     <HorizontalLayout class = "gameSetupRow">
         <Text class = "gameSetupParamText" color = "#FFFFFF" text="Number of cards to discard"></Text>
-        <InputField id = "gameSetupDiscardsInput" class = "gameSetupInput" onEndEdit = "uiSetupDiscardInput">0</InputField>
+        <InputField id = "gameSetupDiscardsInput" class = "gameSetupInput" onEndEdit = "uiSetupDiscardInput" tooltip = "Set how many cards each player should discard.">0</InputField>
     </HorizontalLayout>
     <HorizontalLayout class = "gameSetupDeckLayout">
         <Button class = "gameSetupDeckButton" onClick="uiSetupNormalDeckButton" colors = "#66666680|#666666CC|#66666680|#66666680">Normal Deck</Button>
@@ -39,7 +45,7 @@
     <Button id = "fetchListButton" class = "fetchListButton blackButton" onClick="uiFetchListButton" colors = "#66666680|#666666CC|#66666680|#66666680">Fetch Public Custom Decks</Button>
 
     <Text class = "gameSetupTokenText" color = "#FFFFFF" text="Custom Deck Token"></Text>
-    <InputField id = "gameSetupTokenInput" class = "gameSetupTokenInput" onEndEdit = "uiSetupTokenInput"></InputField>
+    <InputField id = "gameSetupTokenInput" class = "gameSetupTokenInput" onEndEdit = "uiSetupTokenInput" tooltip = "If you have a custom deck you would like to use, you can use its TTS Load token here. Decks can be created at https://platypuseggs.com and their load tokens can also be found here."></InputField>
 
     <Button class = "gameSetupButton" onClick="uiSetupSpawnButton">Spawn Deck</Button>
     <Button class = "gameSetupButton" onClick="uiShuffleSeats">Shuffle Seats</Button>
@@ -118,3 +124,7 @@
         <Cell class = "modifyScoreCancelButtonCell"><Button id = "modifyScoreCancelButton" class = "modifyScoreSaveButton" onClick="uiToggleModifyScores">Cancel</Button></Cell>
     </Row>
 </TableLayout>
+
+<VerticalLayout id = "toggleGameButtonsLayout" class = "toggleGameButtonsLayout">
+    <Button id = "toggleGameButtons" class = "toggleGameButtons"></Button>
+</VerticalLayout>

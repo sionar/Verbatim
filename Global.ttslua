@@ -76,7 +76,6 @@ newGameParams = {
 --deckGuid = "678776"
 checkerStartGuid = "9d19a8"
 checkerPassScoreGuid = "ade49b"
-timerGuid = "0fe55a"
 boardGuid = "2d5517"
 bottomZoneGuid = "850aaf"
 redScoreZoneGuid = "94e45f"
@@ -245,7 +244,9 @@ function onLoad(saveData)
   checkerStart.interactable = false
   checkerPassScore = getObjectFromGUID(checkerPassScoreGuid)
   checkerPassScore.interactable = false
-  timer = getObjectFromGUID(timerGuid)
+  local allColors = {'White', 'Brown', 'Red', 'Orange', 'Yellow', 'Green', 'Teal', 'Blue', 'Purple', 'Pink', 'Black', 'Grey'}
+  checkerStart.setInvisibleTo(allColors)
+  checkerPassScore.setInvisibleTo(allColors)
   board = getObjectFromGUID(boardGuid)
   tableBG = getObjectFromGUID(tableBGGuid)
   tableBG.interactable = false
@@ -478,7 +479,7 @@ function getInitialDeck()
   initialDeck = findDeckCard(initialDeckZone)
 
   if initialDeck == nil or initialDeck.tag != "Deck" then
-    printToAll("Error retrieving deck. Please ensure you have spawned a deck and it is placed on the pedestal near the timer.", textColor.Red)
+    printToAll("Error retrieving deck. Please ensure you have spawned a deck and it is placed on the pedestal at the top of the table.", textColor.Red)
     return false
   end
   if tonumber(uiDiscardInput) > 0 then
@@ -591,7 +592,8 @@ end
 
 function startTimer()
   timerCheckID = Wait.time(function()
-    if timer.getValue() == 0 and not timerTriggered then
+    local uiTime = uiGetTime()
+    if uiTime == 0 and not timerTriggered then
       -- after one second, switch the turn
       playSound(sound.timeUp)
       timerTriggered = true
@@ -659,7 +661,8 @@ function switchTurn(object, color)
     return
   end
 
-  timer.setValue(roundTime[round])
+  uiSetTime(roundTime[round])
+  uiStopTime()
   pass(false)
 
   Wait.time(function()
@@ -702,7 +705,7 @@ function startTurn(object, color)
   status = "playing"
   drawButtons()
 
-  timer.Clock.paused = false
+  uiStartTime()
   getNewCard(currentTeam)
 
   -- remove start turn button
@@ -833,7 +836,7 @@ function checkRoundEnd()
   end
 
   if empty then
-    timer.Clock.paused = true
+    uiStopTime()
     rotateColors(currentTeam)
     colorBars("Both")
     if round == 3 then
@@ -893,13 +896,15 @@ function endRound(object, color)
     lockAndLoad()
 
     colorBars(currentTeam)
-    timer.setValue(roundTime[round])
+    uiSetTime(roundTime[round])
+    uiStopTime()
     status = "aboutToStart" drawButtons()
   end, 2)
 end
 
 function endGame()
   Wait.stop(timerCheckID)
+  uiStopTime()
   local seconds = Time.time - startTime
   broadcastToAll("Game Complete. This game took " .. math.floor(seconds + 0.5) .. " seconds (" .. math.floor(seconds / 60 + 0.5) .. " minutes).", {1,1,0})
 end
@@ -922,7 +927,8 @@ function newGame(object, color)
   round = 1
   points["Red"] = 0 points["Blue"] = 0
   updatePoints()
-  timer.setValue(roundTime[1])
+  uiSetTime(roundTime[1])
+  uiStopTime()
 
   checkerPassScore.scale(1/2.5)
   startTurnParams.height = buttonSize.startTurn.small.height
@@ -1174,6 +1180,7 @@ function drawButtons()
     showButtonsUI('None', 'playingButtons')
     UI.setAttribute('nextRoundLayout', 'active', 'false')
     UI.setAttribute('gameSetup'..uiDeckType..'Layout', 'active', 'false')
+    UI.setAttribute('timeText', 'active', 'true')
   elseif status == "playing" then
     checkerPassScore.createButton(passParams)
     checkerPassScore.createButton(scoreParams)
@@ -1181,11 +1188,14 @@ function drawButtons()
     showButtonsUI('None', 'gameButtonsLayout')
     showButtonsUI('None', 'startButtonLayout')
     showButtonsUI(currentTeam, 'playingButtons')
+    UI.setAttribute('timeButtonsLayout', 'active', 'true')
   elseif status == "scoring" then
     -- end of round, players are busy scoring
     checkerStart.createButton(countPointParams)
     --recolorButtons(currentTeam)
     showButtonsUI('None', 'playingButtons')
+    UI.setAttribute('timeText', 'active', 'false')
+    UI.setAttribute('timeButtonsLayout', 'active', 'false')
     UI.setAttribute('countPointsLayout', 'active', 'true')
   elseif status == "ready" then
     -- players are done scoring and ready to go to the next round
@@ -1403,7 +1413,10 @@ uiDeckType = 'Normal'
 uiInputToken = ''
 uiModifyScoreRed = 0
 uiModifyScoreBlue = 0
-
+uiTime = 60
+uiTimeId = nil
+uiTimeActive = false
+uiButtonsInvisible = true
 
 function onPlayerChangeColor(playerColor)
     doneRotating = false
@@ -1456,13 +1469,16 @@ function updateVisibilityUI()
     UI.setAttribute('startButtonLayoutBlue', 'visibility', visStrBlue)
     UI.setAttribute('gameButtonsLayoutRed', 'visibility', visStrRed)
     UI.setAttribute('gameButtonsLayoutBlue', 'visibility', visStrBlue)
+    UI.setAttribute('playingButtonsRed', 'visibility', visStrRed)
+    UI.setAttribute('playingButtonsBlue', 'visibility', visStrBlue)
     UI.setAttribute('checkPointsLayout', 'visibility', visStrAll)
     UI.setAttribute('nextRoundLayout', 'visibility', visStrAll)
     UI.setAttribute('gameSetupNormalLayout', 'visibility', visAdmin)
     UI.setAttribute('gameSetupCustomLayout', 'visibility', visAdmin)
     UI.setAttribute('modifyScoreLayout', 'visibility', visAdmin)
+    UI.setAttribute('timeButtonsLayout', 'visibility', visAdmin)
+    UI.setAttribute('toggleGameButtons', 'visibility', visAdmin)
 end
-
 
 function uiRotate(player, value, id)
     rotateColors(value)
@@ -1582,6 +1598,7 @@ end
 function uiSetupStartButton(player, value, id)
     local label = UI.getAttribute('gameStart'..uiDeckType, 'text')
     if label == 'Start Game' then
+        newGame(nil, player.color)
         start(nil, player.color)
     elseif label == 'Done Discarding' then
         checkReady(nil, player.color)
@@ -1626,7 +1643,7 @@ end
 function uiDecklistDropdown(player, value, id)
     for i,v in ipairs(decklist) do
         if string.match(value, v.Name) then
-            print(v.Name .. ' decklist selected.\n[338EF8]Description:[-] ' .. v.Description)
+            print('\n[338EF8]' .. v.Name .. '[-] deck selected.\n[338EF8]Author: [-]' .. v.Author .. '\n[338EF8]Description:[-] ' .. v.Description)
             uiInputToken = v.IdentifiyngToken
             UI.setAttribute('gameSetupTokenInput', 'text', v.IdentifiyngToken)
             break
@@ -1671,4 +1688,58 @@ function uiUpdateScores(player, value, id)
     points['Blue'] = uiModifyScoreBlue
     updatePoints()
     UI.setAttribute('modifyScoreLayout', 'active', 'false')
+end
+
+function uiGetTime()
+    return tonumber(UI.getAttribute('timeText', 'text'))
+end
+
+function uiSetTime(val)
+    UI.setAttribute('timeText', 'text', val)
+end
+
+function uiStartTime()
+    uiTimeId = Wait.time(uiDecrementTime, 1, -1)
+    uiTimeActive = true
+end
+
+function uiStopTime()
+    if uiTimeId then
+        Wait.stop(uiTimeId)
+    end
+    uiTimeActive = false
+end
+
+function uiDecrementTime()
+    local time = uiGetTime()
+    time = time - 1
+    uiSetTime(time)
+end
+
+function uiToggleTime(player, value, id)
+    if uiTimeActive then
+        UI.setAttribute('uiToggleTimeButton', 'text', 'Start Timer')
+        UI.setAttribute('uiToggleTimeButton', 'textColor', '#FFFFFF')
+        uiStopTime()
+    else
+        UI.setAttribute('uiToggleTimeButton', 'text', 'Pause Timer')
+        UI.setAttribute('uiToggleTimeButton', 'textColor', '#FFFFFF')
+        uiStartTime()
+    end
+end
+
+function uiResetTime(player, value, id)
+    uiSetTime(roundTime[round])
+end
+
+function uiToggleButtons(player, value, id)
+    local allColors = {'White', 'Brown', 'Red', 'Orange', 'Yellow', 'Green', 'Teal', 'Blue', 'Purple', 'Pink', 'Black', 'Grey'}
+    uiButtonsInvisible = not uiButtonsInvisible
+    if uiButtonsInvisible then
+        checkerStart.setInvisibleTo(allColors)
+        checkerPassScore.setInvisibleTo(allColors)
+    else
+        checkerStart.setInvisibleTo({})
+        checkerPassScore.setInvisibleTo({})
+    end
 end

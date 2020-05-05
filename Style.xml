@@ -1,5 +1,13 @@
 <Defaults>
-    <Text class="teamLabel" fontSize = "36" alignment="UpperRight" offsetXY = "-275 -7"/>
+    <Text class = "teamLabel" fontSize = "36" alignment = "UpperRight" offsetXY = "-275 -7"/>
+    <Text class = "timeText" fontSize = "64" alignment = "UpperCenter" offsetXY = "0 -80" active = "false"/>
+    <HorizontalLayout class = "timeButtonsLayout"
+        height = "50"
+        width = "200"
+        rectAlignment = "UpperCenter"
+        offsetXY = "0 -150"
+        active = "false"
+        />
 
     <VerticalLayout class = "setupLayoutNormal"
         height = "400"
@@ -81,7 +89,7 @@
         preferredHeight = "50"
         preferredWidth = "250"
         fontSize = "24"
-        placeholder = "Enter input token here"
+        placeholder = "Enter load token"
         lineType = "MultiLineNewLine"
         color = "#4040FF20"
         textColor = "#FFFFFF"
@@ -167,6 +175,13 @@
         active = "false"
         />
 
+    <VerticalLayout class = "toggleGameButtonsLayout"
+        rectAlignment = "LowerRight"
+        offsetXY = "-9 70"
+        height = "63"
+        width = "63"
+        />
+
     <Dropdown class = "decklistDropdown"
         preferredHeight = "50"
         preferredWidth = "275"
@@ -183,4 +198,10 @@
     <Button class = "redButton" colors="#FF404060|#FF4040FF|#FF404080|#FF404080" textColor="#FFFFFF"/>
     <Button class = "blueButton" colors="#4040FF60|#4040FFFF|#4040FF80|#4040FF80" textColor="#FFFFFF"/>
     <Button class = "blackButton" colors="#66666680|#666666FF|#66666680|#66666680" textColor="#FFFFFF"/>
+    <Button class = "toggleGameButtons"
+        onClick = "uiToggleButtons"
+        text = "Toggle Buttons"
+        colors = "#66666680|#666666FF|#66666680|#66666680"
+        textColor = "#FFFFFF"
+        />
 </Defaults>
