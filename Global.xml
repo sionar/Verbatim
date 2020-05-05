@@ -4,7 +4,7 @@
 <VerticalLayout id = "gameSetupLayoutNormal" class = "setupLayoutNormal">
     <Text class = "gameSetupTitleText" color = "#FFFFFF" text="Game Setup"></Text>
     <HorizontalLayout class = "gameSetupRow">
-        <Text class = "gameSetupParamText" color = "#FFFFFF" text="Cards per player"></Text>
+        <Text class = "gameSetupParamText" color = "#FFFFFF" text="Number of cards per player"></Text>
         <InputField id = "gameSetupCardsInput" class = "gameSetupInput" onEndEdit = "uiSetupCardsInput">6</InputField>
     </HorizontalLayout>
     <HorizontalLayout class = "gameSetupRow">
@@ -24,7 +24,7 @@
 <VerticalLayout id = "gameSetupLayoutCustom" class = "setupLayoutCustom">
     <Text class = "gameSetupTitleText" color = "#FFFFFF" text="Game Setup"></Text>
     <HorizontalLayout class = "gameSetupRow">
-        <Text class = "gameSetupParamText" color = "#FFFFFF" text="Cards per player"></Text>
+        <Text class = "gameSetupParamText" color = "#FFFFFF" text="Number of cards per player"></Text>
         <InputField id = "gameSetupCardsInput" class = "gameSetupInput" onEndEdit = "uiSetupCardsInput">6</InputField>
     </HorizontalLayout>
     <HorizontalLayout class = "gameSetupRow">

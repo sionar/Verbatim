@@ -444,16 +444,8 @@ function start(obj, color)
     status = "discarding" drawButtons()
   else
 
-    -- if playerCount < 6 then
-    --   amountToDeal = 6
-    -- else
-    --   amountToDeal = 5
-    -- end
     amountToDeal = uiCardsInput
-
-    local amount
-    if #getSeatedPlayers() < 6 then amount = 4 else amount = 3 end
-    local total = amount * #getSeatedPlayers()
+    local total = amountToDeal * #getSeatedPlayers()
 
     local remainingDeck
     if #initialDeck.getObjects() > total + 1 then
