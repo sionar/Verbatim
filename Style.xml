@@ -16,7 +16,7 @@
         />
 
     <VerticalLayout class = "setupLayoutCustom"
-        height = "440"
+        height = "500"
         width = "300"
         offsetXY = "150 -50"
         padding = "20 20 20 20"
@@ -87,6 +87,13 @@
         textColor = "#FFFFFF"
         />
 
+    <Button class = "fetchListButton"
+        preferredWidth = "275"
+        preferredHeight = "50"
+        fontSize = "16"
+        textColor = "#FFFFFF"
+        />
+
     <Button class = "gameSetupDeckButton"
         preferredWidth = "200"
         preferredHeight = "50"
@@ -126,6 +133,14 @@
         rectAlignment = "LowerCenter"
         offsetXY = "0 7"
         active = "false"
+        />
+
+    <Dropdown class = "decklistDropdown"
+        preferredHeight = "50"
+        preferredWidth = "275"
+        dropdownHeight = "500"
+        colors = "#FFFFFF80|#FFFFFFCC|#FFFFFF80|#FFFFFF80"
+        textColor = "#338EF8"
         />
 
     <Cell class = "buttonsCell" columnSpan = "1" dontUseTableCellBackground = "true"/>

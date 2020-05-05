@@ -1667,9 +1667,9 @@ function uiSpawnDeck(btn_object, color, alt_click, token)
     end
 
     if uiInputToken == '' then
-        getNewDeck(cardCount, token)
-    else
         getNewDeck(cardCount, nil)
+    else
+        getNewDeck(cardCount, token)
     end
 end
 
@@ -1679,5 +1679,50 @@ function uiSetupStartButton(player, value, id)
         start(nil, player.color)
     elseif label == 'Done Discarding' then
         checkReady(nil, player.color)
+    end
+end
+
+function uiFetchListButton(player, value, id)
+    WebRequest.get("https://platypuseggs.com/VerbatimService.svc/GetAllDecks", fetchCallback)
+end
+
+function fetchCallback(req)
+    if req.is_done and not req.is_error then
+        local response = JSON.decode(req.text)
+        decklist = {}
+        for i,v in ipairs(response) do
+            if v.TotalCards >= 50 then
+                table.insert(decklist, v)
+            end
+        end
+        local xml = UI.getXmlTable()
+        local tab = {
+            tag = "Dropdown",
+            attributes = { class = "decklistDropdown", onValueChanged = "uiDecklistDropdown"},
+            children = {{tag = 'Option', value = 'Choose a decklist', attributes = {}, children = {}}}
+            }
+        local entry = {}
+        for i,v in ipairs(decklist) do
+            entry = {
+                tag = 'Option', value = v.Name .. ' [ ' .. v.TotalCards .. ' cards ]', attributes = {}, children = {}
+            }
+            table.insert(tab.children, entry)
+        end
+        for k,v in pairs(xml) do
+            if v.attributes.id == 'gameSetupLayoutCustom' then
+                v.children[5] = tab
+            end
+        end
+        UI.setXmlTable(xml)
+    end
+end
+
+function uiDecklistDropdown(player, value, id)
+    for i,v in ipairs(decklist) do
+        if string.match(value, v.Name) then
+            print(v.Name .. ' decklist selected.\n[338EF8]Description:[-] ' .. v.Description)
+            uiInputToken = v.IdentifiyngToken
+            break
+        end
     end
 end
