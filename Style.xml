@@ -1,15 +1,24 @@
 <Defaults>
     <Text class = "teamLabel" fontSize = "36" alignment = "UpperRight" offsetXY = "-275 -7"/>
-    <Text class = "timeText" fontSize = "64" alignment = "UpperCenter" offsetXY = "0 -80" active = "false"/>
-    <HorizontalLayout class = "timeButtonsLayout"
-        height = "50"
+    <Text class = "timeText" fontSize = "64" alignment = "UpperCenter" offsetXY = "0 -80"/>
+    <VerticalLayout class = "timeLayout" id = "timeLayout"
+        height = "125"
         width = "200"
         rectAlignment = "UpperCenter"
-        offsetXY = "0 -150"
+        offsetXY = "0 -80"
+        allowDragging = "true"
+        returnToOriginalPositionWhenReleased = "false"
         active = "false"
         />
 
+    <Button class = "timeButton"
+        preferredWidth = "200"
+        preferredHeight = "50"
+        />
+
     <VerticalLayout class = "setupLayoutNormal"
+        allowDragging = "true"
+        returnToOriginalPositionWhenReleased = "false"
         height = "400"
         width = "300"
         offsetXY = "150 -50"

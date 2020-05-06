@@ -1,11 +1,13 @@
 <Text class = "teamLabel" color = "#DA1917" visibility = "Red|Orange|Yellow|Teal|Green" text = "Team Red"></Text>
 <Text class = "teamLabel" color = "#1E87FF" visibility = "Blue|Pink|Purple|Brown|White" text = "Team Blue"></Text>
-<Text class = "timeText" id = "timeText" color="#DA1917" text="60"></Text>
-<HorizontalLayout class = "timeButtonsLayout" id = "timeButtonsLayout">
-    <Button class = "timeButton blackButton" id = "uiToggleTimeButton" onClick="uiToggleTime" text = "Pause Timer"></Button>
-    <Button class = "timeButton blackButton" onClick="uiResetTime" text = "Reset Timer"></Button>
-</HorizontalLayout>
 
+<VerticalLayout class = "timeLayout">
+    <Text class = "timeText" id = "timeText" color="#DA1917" text="60"></Text>
+    <HorizontalLayout class = "timeButtonsLayout" id = "timeButtonsLayout">
+        <Button class = "timeButton blackButton" id = "uiToggleTimeButton" onClick="uiToggleTime" text = "Pause Timer"></Button>
+        <Button class = "timeButton blackButton" onClick="uiResetTime" text = "Reset Timer"></Button>
+    </HorizontalLayout>
+</VerticalLayout>
 
 <VerticalLayout id = "gameSetupNormalLayout" class = "setupLayoutNormal">
     <Text class = "gameSetupTitleText" color = "#FFFFFF" text="Game Setup"></Text>

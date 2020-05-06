@@ -930,7 +930,7 @@ function newGame(object, color)
   uiSetTime(roundTime[1])
   uiStopTime()
 
-  checkerPassScore.scale(1/2.5)
+  checkerPassScore.setScale({1,1,1})
   startTurnParams.height = buttonSize.startTurn.small.height
   startTurnParams.width = buttonSize.startTurn.small.width
   rotateBackwardsParams.position = buttonPos.rotateBack.small
@@ -1180,7 +1180,7 @@ function drawButtons()
     showButtonsUI('None', 'playingButtons')
     UI.setAttribute('nextRoundLayout', 'active', 'false')
     UI.setAttribute('gameSetup'..uiDeckType..'Layout', 'active', 'false')
-    UI.setAttribute('timeText', 'active', 'true')
+    UI.setAttribute('timeLayout', 'active', 'true')
   elseif status == "playing" then
     checkerPassScore.createButton(passParams)
     checkerPassScore.createButton(scoreParams)
@@ -1188,14 +1188,12 @@ function drawButtons()
     showButtonsUI('None', 'gameButtonsLayout')
     showButtonsUI('None', 'startButtonLayout')
     showButtonsUI(currentTeam, 'playingButtons')
-    UI.setAttribute('timeButtonsLayout', 'active', 'true')
   elseif status == "scoring" then
     -- end of round, players are busy scoring
     checkerStart.createButton(countPointParams)
     --recolorButtons(currentTeam)
     showButtonsUI('None', 'playingButtons')
-    UI.setAttribute('timeText', 'active', 'false')
-    UI.setAttribute('timeButtonsLayout', 'active', 'false')
+    UI.setAttribute('timeLayout', 'active', 'false')
     UI.setAttribute('countPointsLayout', 'active', 'true')
   elseif status == "ready" then
     -- players are done scoring and ready to go to the next round
@@ -1457,6 +1455,7 @@ function updateVisibilityUI()
     local visStrBlue = 'Blue'
     local visStrAll = 'Red|Blue'
     local visAdmin = 'Black'
+    local visPublic = 'White|Brown|Red|Orange|Yellow|Green|Teal|Blue|Purple|Pink|Black|Grey'
 
     for i, color in ipairs(colors) do
         if Player[color].admin then
@@ -1476,6 +1475,7 @@ function updateVisibilityUI()
     UI.setAttribute('gameSetupNormalLayout', 'visibility', visAdmin)
     UI.setAttribute('gameSetupCustomLayout', 'visibility', visAdmin)
     UI.setAttribute('modifyScoreLayout', 'visibility', visAdmin)
+    UI.setAttribute('timeText', 'visibility', visPublic)
     UI.setAttribute('timeButtonsLayout', 'visibility', visAdmin)
     UI.setAttribute('toggleGameButtons', 'visibility', visAdmin)
 end
