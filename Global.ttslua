@@ -1678,10 +1678,10 @@ end
 
 function uiUpdateScores(player, value, id)
     if (points['Red'] ~= uiModifyScoreRed) then
-        printToAll('[DA1917]Red team\'s[-] points have been adjusted from [E7E52C]' .. points['Red'] .. '[-] to [E7E52C]' .. uiModifyScoreRed .. '[-].')
+        printToAll('[E7E52C]Red team\'s points have been adjusted from [DA1917]' .. points['Red'] .. '[-] to [DA1917]' .. uiModifyScoreRed .. '[-].')
     end
     if (points['Blue'] ~= uiModifyScoreBlue) then
-        printToAll('[1E87FF]Blue team\'s[-] points have been adjusted from [E7E52C]' .. points['Blue'] .. '[-] to [E7E52C]' .. uiModifyScoreBlue .. '[-].')
+        printToAll('[E7E52C]Blue team\'s points have been adjusted from [1E87FF]' .. points['Blue'] .. '[-] to [1E87FF]' .. uiModifyScoreBlue .. '[-].')
     end
 
     points['Red'] = uiModifyScoreRed

@@ -33,6 +33,8 @@
         />
 
     <VerticalLayout class = "setupLayoutCustom"
+        allowDragging = "true"
+        returnToOriginalPositionWhenReleased = "false"
         height = "550"
         width = "300"
         offsetXY = "150 -50"
