@@ -1069,7 +1069,12 @@ do
     ["BlueReverse"] = {[0] = "Blue", [1] = "Pink", [2] = "Purple", [3] = "Brown", [4] = "White"}
   }
 
-  function rotateColors(team)
+  function rotateColors(team, playerColor)
+
+    if playerColor != nil and not checkPermission(playerColor) then
+      return
+    end
+
     local colors = teamColors[team]
     local players = {}
     local mainSeated = false -- if red/blue is about to be seated
@@ -1124,7 +1129,7 @@ do
 end
 
 function rotateBack(obj, color)
-  if color != currentTeam then
+  if not checkPermission(color) then
     return
   end
   rotateColors(currentTeam .. "Reverse")
@@ -1264,15 +1269,6 @@ function onChat(message, player)
 
     if message == "!background" then
       tableBG.interactable = not tableBG.interactable
-      return false
-    elseif message == "!rotate red" then
-      rotateColors("Red")
-      return false
-    elseif message == "!rotate blue" then
-      rotateColors("Blue")
-      return false
-    elseif message == "!random" then
-      shufflePlayers(player.color)
       return false
     end
 
@@ -1453,21 +1449,24 @@ function updateVisibilityUI()
     local colors = getSeatedPlayers()
     local visStrRed = 'Red'
     local visStrBlue = 'Blue'
+    local visStrRedAdmin = 'Red'
+    local visStrBlueAdmin = 'Blue'
     local visStrAll = 'Red|Blue'
     local visAdmin = 'Black'
     local visPublic = 'White|Brown|Red|Orange|Yellow|Green|Teal|Blue|Purple|Pink|Black|Grey'
 
     for i, color in ipairs(colors) do
         if Player[color].admin then
-            visStrRed = visStrRed .. '|' .. color
-            visStrBlue = visStrBlue .. '|' .. color
+            visStrRedAdmin = visStrRedAdmin .. '|' .. color
+            visStrBlueAdmin = visStrBlueAdmin .. '|' .. color
             visAdmin = visAdmin .. '|' .. color
         end
     end
+
     UI.setAttribute('startButtonLayoutRed', 'visibility', visStrRed)
     UI.setAttribute('startButtonLayoutBlue', 'visibility', visStrBlue)
-    UI.setAttribute('gameButtonsLayoutRed', 'visibility', visStrRed)
-    UI.setAttribute('gameButtonsLayoutBlue', 'visibility', visStrBlue)
+    UI.setAttribute('gameButtonsLayoutRed', 'visibility', visStrRedAdmin)
+    UI.setAttribute('gameButtonsLayoutBlue', 'visibility', visStrBlueAdmin)
     UI.setAttribute('playingButtonsRed', 'visibility', visStrRed)
     UI.setAttribute('playingButtonsBlue', 'visibility', visStrBlue)
     UI.setAttribute('checkPointsLayout', 'visibility', visStrAll)
@@ -1481,7 +1480,7 @@ function updateVisibilityUI()
 end
 
 function uiRotate(player, value, id)
-    rotateColors(value)
+    rotateColors(value, player.color)
 end
 
 function uiSwitchTurn(player, value, id)
@@ -1493,11 +1492,11 @@ function uiStartTurn(player, value, id)
 end
 
 function uiScore(player, value, id)
-    score(nil, value)
+    score(nil, player.color)
 end
 
 function uiPass(player, value, id)
-    pass(true, value)
+    pass(true, player.color)
 end
 
 function uiCountPoints(player, value, id)
