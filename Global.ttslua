@@ -182,9 +182,9 @@ roundTime = {
 }
 
 backgroundLink = {
-    [1] = "https://i.imgur.com/BgpJMHU.png",
-    [2] = "https://i.imgur.com/v04d2D5.png",
-    [3] = "https://i.imgur.com/Tn4DT6L.jpg"
+    [1] = "http://cloud-3.steamusercontent.com/ugc/1008189541390282161/5F4389F877B17DB256ACF86C0D91F1C1820EE8D2/",
+    [2] = "http://cloud-3.steamusercontent.com/ugc/1008189541390282985/68E527DA107FB7AFD9A2079973EB632B7D1A976B/",
+    [3] = "http://cloud-3.steamusercontent.com/ugc/1008189541390283756/CCD63A75647D317CE00D757DF430B89A2CE946E1/"
 }
 
 --[[
