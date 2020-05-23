@@ -7,6 +7,8 @@
         <Button class = "timeButton blackButton" id = "uiToggleTimeButton" onClick="uiToggleTime" text = "Pause Timer"></Button>
         <Button class = "timeButton blackButton" onClick="uiResetTime" text = "Reset Timer"></Button>
     </HorizontalLayout>
+    <Button class = "challengeButton blackNoHoverButton" id = "challengeButtonBlack" text = "Challenge"></Button>
+    <Button class = "challengeButton whiteButton" id = "challengeButtonWhite" onClick = "uiChallenge" text = "Challenge" active = "false"></Button>
 </VerticalLayout>
 
 <VerticalLayout id = "gameSetupNormalLayout" class = "setupLayoutNormal">
