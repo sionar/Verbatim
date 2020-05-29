@@ -249,7 +249,7 @@ function onLoad(saveData)
   checkerPassScore.setInvisibleTo(allColors)
   board = getObjectFromGUID(boardGuid)
   tableBG = getObjectFromGUID(tableBGGuid)
-  tableBG.interactable = false
+  tableBG.interactable = true
   audioAsset = getObjectFromGUID(audioAssetGuid)
   audioAsset.interactable = false
 
