@@ -2,7 +2,7 @@
     <Text class = "teamLabel" fontSize = "36" alignment = "UpperRight" offsetXY = "-275 -7"/>
     <Text class = "timeText" fontSize = "64" alignment = "UpperCenter" offsetXY = "0 -80"/>
     <VerticalLayout class = "timeLayout" id = "timeLayout"
-        height = "125"
+        height = "180"
         width = "200"
         rectAlignment = "UpperCenter"
         offsetXY = "0 -80"
@@ -13,8 +13,14 @@
 
     <Button class = "timeButton"
         preferredWidth = "200"
-        preferredHeight = "50"
+        preferredHeight = "40"
         />
+
+    <Button class = "challengeButton"
+      preferredWidth = "400"
+      preferredHeight = "50"
+      fontSize = "24"
+      />
 
     <VerticalLayout class = "setupLayoutNormal"
         allowDragging = "true"
@@ -208,7 +214,10 @@
     <Button class = "playingButton" rectAlignment="LowerCenter" />
     <Button class = "redButton" colors="#FF404060|#FF4040FF|#FF404080|#FF404080" textColor="#FFFFFF"/>
     <Button class = "blueButton" colors="#4040FF60|#4040FFFF|#4040FF80|#4040FF80" textColor="#FFFFFF"/>
-    <Button class = "blackButton" colors="#66666680|#666666FF|#66666680|#66666680" textColor="#FFFFFF"/>
+    <Button class = "blackButton" colors="#66666680|#|#66666680|#66666680" textColor="#FFFFFF"/>
+    <Button class = "blackNoHoverButton" colors="#66666680|#66666680|#66666680|#66666680" textColor="#FFFFFF"/>
+    <Button class = "whiteButton" colors="#FFFFFFFF|#66666680|#FFFFFFFF|#FFFFFFFF" textColor="#000000"/>
+    <Button class = "whiteButton" colors="#FFFFFFFF|#d9d9d9d9|#FFFFFFFF|#FFFFFFFF" textColor="#000000"/>
     <Button class = "toggleGameButtons"
         onClick = "uiToggleButtons"
         text = "Toggle Buttons"

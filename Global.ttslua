@@ -182,9 +182,9 @@ roundTime = {
 }
 
 backgroundLink = {
-    [1] = "https://i.imgur.com/BgpJMHU.png",
-    [2] = "https://i.imgur.com/v04d2D5.png",
-    [3] = "https://i.imgur.com/Tn4DT6L.jpg"
+    [1] = "http://cloud-3.steamusercontent.com/ugc/1008189541390282161/5F4389F877B17DB256ACF86C0D91F1C1820EE8D2/",
+    [2] = "http://cloud-3.steamusercontent.com/ugc/1008189541390282985/68E527DA107FB7AFD9A2079973EB632B7D1A976B/",
+    [3] = "http://cloud-3.steamusercontent.com/ugc/1008189541390283756/CCD63A75647D317CE00D757DF430B89A2CE946E1/"
 }
 
 --[[
@@ -217,6 +217,8 @@ playerCount = 0
 amountToDeal = 0
 toDiscard = false
 spawningDeck = false
+challenged = false
+challengeRotate = false
 
 
 
@@ -664,6 +666,7 @@ function switchTurn(object, color)
   uiSetTime(roundTime[round])
   uiStopTime()
   pass(false)
+  uiChallengeActive(false)
 
   Wait.time(function()
     deck.shuffle()
@@ -752,6 +755,8 @@ function score(object, color)
     -- in case the team changes before the new card function is reached
     local team = currentTeam
     Wait.time(function() getNewCard(team) end, 0.5)
+
+    uiChallengeActive(true)
   end
 
   -- always check round end whether the hand is valid or not, allowing people to click score with an empty hand to end the round
@@ -839,14 +844,21 @@ function checkRoundEnd()
     uiStopTime()
     rotateColors(currentTeam)
     colorBars("Both")
-    if round == 3 then
-      status = "end"
-      endGame()
-    else
-      status = "scoring"
-    end
-    drawButtons()
+
+    postRound()
   end
+end
+
+-- setup the appropriate buttons for post round phase, where players have finished
+-- the round but have yet to score and proceed to the next round
+function postRound()
+  if round == 3 then
+    status = "end"
+    endGame()
+  else
+    status = "scoring"
+  end
+  drawButtons()
 end
 
 function endRound(object, color)
@@ -896,6 +908,7 @@ function endRound(object, color)
     lockAndLoad()
 
     colorBars(currentTeam)
+    uiChallengeActive(false)
     uiSetTime(roundTime[round])
     uiStopTime()
     status = "aboutToStart" drawButtons()
@@ -1069,7 +1082,12 @@ do
     ["BlueReverse"] = {[0] = "Blue", [1] = "Pink", [2] = "Purple", [3] = "Brown", [4] = "White"}
   }
 
-  function rotateColors(team)
+  function rotateColors(team, playerColor)
+
+    if playerColor != nil and not checkPermission(playerColor) then
+      return
+    end
+
     local colors = teamColors[team]
     local players = {}
     local mainSeated = false -- if red/blue is about to be seated
@@ -1124,7 +1142,7 @@ do
 end
 
 function rotateBack(obj, color)
-  if color != currentTeam then
+  if not checkPermission(color) then
     return
   end
   rotateColors(currentTeam .. "Reverse")
@@ -1137,6 +1155,31 @@ function onUpdate()
     switchTurn()
   end
   ]]
+end
+
+function challengeCard(color)
+
+  challenged = true
+
+  local zone
+  if currentTeam == "Red" then
+    zone = redScoreZone
+  else
+    zone = blueScoreZone
+  end
+
+  local obj = findDeckCard(zone)
+
+  if obj == nil then
+    return
+  elseif obj.tag == "Card" then
+    obj.setPositionSmooth({0,2,0})
+  else
+    obj.takeObject({position = {0,2,0}, smooth = true})
+  end
+
+  uiChallengeActive(false)
+
 end
 
 function recolorButtons(color)
@@ -1264,15 +1307,6 @@ function onChat(message, player)
 
     if message == "!background" then
       tableBG.interactable = not tableBG.interactable
-      return false
-    elseif message == "!rotate red" then
-      rotateColors("Red")
-      return false
-    elseif message == "!rotate blue" then
-      rotateColors("Blue")
-      return false
-    elseif message == "!random" then
-      shufflePlayers(player.color)
       return false
     end
 
@@ -1453,21 +1487,24 @@ function updateVisibilityUI()
     local colors = getSeatedPlayers()
     local visStrRed = 'Red'
     local visStrBlue = 'Blue'
+    local visStrRedAdmin = 'Red'
+    local visStrBlueAdmin = 'Blue'
     local visStrAll = 'Red|Blue'
     local visAdmin = 'Black'
     local visPublic = 'White|Brown|Red|Orange|Yellow|Green|Teal|Blue|Purple|Pink|Black|Grey'
 
     for i, color in ipairs(colors) do
         if Player[color].admin then
-            visStrRed = visStrRed .. '|' .. color
-            visStrBlue = visStrBlue .. '|' .. color
+            visStrRedAdmin = visStrRedAdmin .. '|' .. color
+            visStrBlueAdmin = visStrBlueAdmin .. '|' .. color
             visAdmin = visAdmin .. '|' .. color
         end
     end
+
     UI.setAttribute('startButtonLayoutRed', 'visibility', visStrRed)
     UI.setAttribute('startButtonLayoutBlue', 'visibility', visStrBlue)
-    UI.setAttribute('gameButtonsLayoutRed', 'visibility', visStrRed)
-    UI.setAttribute('gameButtonsLayoutBlue', 'visibility', visStrBlue)
+    UI.setAttribute('gameButtonsLayoutRed', 'visibility', visStrRedAdmin)
+    UI.setAttribute('gameButtonsLayoutBlue', 'visibility', visStrBlueAdmin)
     UI.setAttribute('playingButtonsRed', 'visibility', visStrRed)
     UI.setAttribute('playingButtonsBlue', 'visibility', visStrBlue)
     UI.setAttribute('checkPointsLayout', 'visibility', visStrAll)
@@ -1478,10 +1515,12 @@ function updateVisibilityUI()
     UI.setAttribute('timeText', 'visibility', visPublic)
     UI.setAttribute('timeButtonsLayout', 'visibility', visAdmin)
     UI.setAttribute('toggleGameButtons', 'visibility', visAdmin)
+    UI.setAttribute('challengeButtonBlack', 'visibility', visPublic)
+    UI.setAttribute('challengeButtonWhite', 'visibility', visPublic)
 end
 
 function uiRotate(player, value, id)
-    rotateColors(value)
+    rotateColors(value, player.color)
 end
 
 function uiSwitchTurn(player, value, id)
@@ -1493,11 +1532,11 @@ function uiStartTurn(player, value, id)
 end
 
 function uiScore(player, value, id)
-    score(nil, value)
+    score(nil, player.color)
 end
 
 function uiPass(player, value, id)
-    pass(true, value)
+    pass(true, player.color)
 end
 
 function uiCountPoints(player, value, id)
@@ -1730,6 +1769,20 @@ end
 
 function uiResetTime(player, value, id)
     uiSetTime(roundTime[round])
+end
+
+function uiChallenge(player, value, id)
+  challengeCard(player.color)
+end
+
+function uiChallengeActive(bool)
+  if bool then
+    UI.setAttribute("challengeButtonWhite", "active", "true")
+    UI.setAttribute("challengeButtonBlack", "active", "false")
+  else
+    UI.setAttribute("challengeButtonWhite", "active", "false")
+    UI.setAttribute("challengeButtonBlack", "active", "true")
+  end
 end
 
 function uiToggleButtons(player, value, id)
