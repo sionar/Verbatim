@@ -224,4 +224,33 @@
         colors = "#66666680|#666666FF|#66666680|#66666680"
         textColor = "#FFFFFF"
         />
+
+    <VerticalLayout class = "cardTextLayout"
+        color = "#66666640"
+        allowDragging = "true"
+        returnToOriginalPositionWhenReleased = "false"
+        height = "350"
+        width = "300"
+        offsetXY = "-200 -50"
+        padding = "20 20 20 20"
+        rectAlignment = "UpperRight"
+        childAlignment = "MiddleCenter"
+        childForceExpandHeight = "false"
+        childForceExpandWidth = "false"
+        spacing = "30"
+        active = "false"
+        />
+
+    <Text class = "cardName"
+        color="#FFFFFF"
+        fontSize = "24"
+        preferredHeight = "150"
+        />
+    <Text class = "cardDesc"
+        color="#FFFFFF"
+        fontSize = "16"
+        preferredHeight = "200"
+        alignment = "UpperCenter"
+        />
+
 </Defaults>

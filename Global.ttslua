@@ -822,7 +822,7 @@ function getNewCard(team)
     -- only deal a card it's at the bottom of the table
     -- this is mainly done because "decks" that are actually 1 card will be sent back to the player's hand otherwise
     deck.deal(1, currentTeam)
-
+    Wait.time(uiUpdateCard, 0.4)
     if deck.tag == "Card" then
       return true
     end
@@ -1224,6 +1224,7 @@ function drawButtons()
     UI.setAttribute('nextRoundLayout', 'active', 'false')
     UI.setAttribute('gameSetup'..uiDeckType..'Layout', 'active', 'false')
     UI.setAttribute('timeLayout', 'active', 'true')
+    UI.setAttribute('cardTextLayout', 'active', 'false')
   elseif status == "playing" then
     checkerPassScore.createButton(passParams)
     checkerPassScore.createButton(scoreParams)
@@ -1231,6 +1232,8 @@ function drawButtons()
     showButtonsUI('None', 'gameButtonsLayout')
     showButtonsUI('None', 'startButtonLayout')
     showButtonsUI(currentTeam, 'playingButtons')
+    UI.setAttribute('cardTextLayout', 'active', 'true')
+    Wait.time(uiUpdateCard, 0.4)
   elseif status == "scoring" then
     -- end of round, players are busy scoring
     checkerStart.createButton(countPointParams)
@@ -1238,6 +1241,8 @@ function drawButtons()
     showButtonsUI('None', 'playingButtons')
     UI.setAttribute('timeLayout', 'active', 'false')
     UI.setAttribute('countPointsLayout', 'active', 'true')
+    UI.setAttribute('cardTextLayout', 'active', 'false')
+    uiResetCard()
   elseif status == "ready" then
     -- players are done scoring and ready to go to the next round
     checkerStart.createButton(endRoundParams)
@@ -1258,6 +1263,8 @@ function drawButtons()
     checkerStart.createButton(params)
     UI.setAttribute('countPointsLayout', 'active', 'false')
     UI.setAttribute('gameSetup'..uiDeckType..'Layout', 'active', 'true')
+    UI.setAttribute('timeLayout', 'active', 'false')
+    UI.setAttribute('cardTextLayout', 'active', 'false')
   end
 end
 
@@ -1795,4 +1802,16 @@ function uiToggleButtons(player, value, id)
         checkerStart.setInvisibleTo({})
         checkerPassScore.setInvisibleTo({})
     end
+end
+
+function uiUpdateCard()
+    UI.setAttribute('cardTextLayout', 'visibility', currentTeam)
+    local card = Player[currentTeam].getHandObjects()[1]
+    UI.setAttribute('cardName', 'text', card.getName())
+    UI.setAttribute('cardDesc', 'text', card.getDescription())
+end
+
+function uiResetCard()
+    UI.setAttribute('cardName', 'text', '')
+    UI.setAttribute('cardDesc', 'text', '')
 end

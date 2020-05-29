@@ -132,3 +132,8 @@
 <VerticalLayout id = "toggleGameButtonsLayout" class = "toggleGameButtonsLayout">
     <Button id = "toggleGameButtons" class = "toggleGameButtons"></Button>
 </VerticalLayout>
+
+<VerticalLayout id = "cardTextLayout" class = "cardTextLayout">
+    <Text id = "cardName" class = "cardName" text = ""></Text>
+    <Text id = "cardDesc" class = "cardDesc" text = ""></Text>
+</VerticalLayout>
