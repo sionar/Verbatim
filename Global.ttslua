@@ -1225,6 +1225,7 @@ function drawButtons()
     UI.setAttribute('gameSetup'..uiDeckType..'Layout', 'active', 'false')
     UI.setAttribute('timeLayout', 'active', 'true')
     UI.setAttribute('cardTextLayout', 'active', 'false')
+    uiResetCard()
   elseif status == "playing" then
     checkerPassScore.createButton(passParams)
     checkerPassScore.createButton(scoreParams)
@@ -1232,6 +1233,7 @@ function drawButtons()
     showButtonsUI('None', 'gameButtonsLayout')
     showButtonsUI('None', 'startButtonLayout')
     showButtonsUI(currentTeam, 'playingButtons')
+    UI.setAttribute('cardTextLayout', 'visibility', currentTeam)
     UI.setAttribute('cardTextLayout', 'active', 'true')
     Wait.time(uiUpdateCard, 0.4)
   elseif status == "scoring" then
@@ -1265,6 +1267,7 @@ function drawButtons()
     UI.setAttribute('gameSetup'..uiDeckType..'Layout', 'active', 'true')
     UI.setAttribute('timeLayout', 'active', 'false')
     UI.setAttribute('cardTextLayout', 'active', 'false')
+    uiResetCard()
   end
 end
 
@@ -1337,20 +1340,25 @@ end
 
 function shufflePlayers(colour)
     if #getSeatedPlayers() < 2 then printToAll("Shuffle Players: [808080]".. Player[colour].steam_name ..", there must be more than one player for shuffling to work.", textColour) return end
-    if Player["Black"].seated == true then printToAll("Please remove Player Black for shuffling to work.", textColour) return end
-
     printToAll("Shuffle Players: ".. Player[colour].steam_name .. " initiated shuffling.", textColour)
 
     local ranColours = getSeatedPlayers()
+    local firstId = Player[ranColours[1]].steam_id
 
     --INSERT THE COLOURS
 
     shuffleTable(ranColours)
-    Player[ranColours[1]].changeColor('Black')
+    Player[ranColours[1]].changeColor('Grey')
     for i = 2, #ranColours do
         Player[ranColours[i]].changeColor(ranColours[i-1])
     end
-    Player['Black'].changeColor(ranColours[#ranColours])
+    local allPlayers = Player.getPlayers()
+    for k,v in pairs(allPlayers) do
+        if v.steam_id == firstId then
+            v.changeColor(ranColours[#ranColours])
+            break
+        end
+    end
 end
 
 function getNewDeck(cardAmount, token)
@@ -1805,7 +1813,6 @@ function uiToggleButtons(player, value, id)
 end
 
 function uiUpdateCard()
-    UI.setAttribute('cardTextLayout', 'visibility', currentTeam)
     local card = Player[currentTeam].getHandObjects()[1]
     UI.setAttribute('cardName', 'text', card.getName())
     UI.setAttribute('cardDesc', 'text', card.getDescription())
