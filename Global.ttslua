@@ -1225,7 +1225,6 @@ function drawButtons()
     UI.setAttribute('gameSetup'..uiDeckType..'Layout', 'active', 'false')
     UI.setAttribute('timeLayout', 'active', 'true')
     UI.setAttribute('cardTextLayout', 'active', 'false')
-    uiResetCard()
   elseif status == "playing" then
     checkerPassScore.createButton(passParams)
     checkerPassScore.createButton(scoreParams)
@@ -1267,7 +1266,6 @@ function drawButtons()
     UI.setAttribute('gameSetup'..uiDeckType..'Layout', 'active', 'true')
     UI.setAttribute('timeLayout', 'active', 'false')
     UI.setAttribute('cardTextLayout', 'active', 'false')
-    uiResetCard()
   end
 end
 
@@ -1330,7 +1328,6 @@ function onScriptingButtonDown(index, player_color)
 end
 
 function shuffleTable(tab)
-    --print("Shuffle Table called.")
     for i = 1, #tab-1 do
         local a = math.random(i, #tab)
         tab[a], tab[i] = tab[i], tab[a]
@@ -1339,13 +1336,9 @@ function shuffleTable(tab)
 end
 
 function shufflePlayers(colour)
-    if #getSeatedPlayers() < 2 then printToAll("Shuffle Players: [808080]".. Player[colour].steam_name ..", there must be more than one player for shuffling to work.", textColour) return end
     printToAll("Shuffle Players: ".. Player[colour].steam_name .. " initiated shuffling.", textColour)
-
     local ranColours = getSeatedPlayers()
     local firstId = Player[ranColours[1]].steam_id
-
-    --INSERT THE COLOURS
 
     shuffleTable(ranColours)
     Player[ranColours[1]].changeColor('Grey')
@@ -1362,9 +1355,7 @@ function shufflePlayers(colour)
 end
 
 function getNewDeck(cardAmount, token)
-
   spawningDeck = true
-
   local payload = {}
   local callback
 
