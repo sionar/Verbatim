@@ -225,42 +225,23 @@
         textColor = "#FFFFFF"
         />
 
-    <!-- <VerticalLayout class = "cardTextLayout"
-        color = "#66666640"
-        allowDragging = "true"
-        returnToOriginalPositionWhenReleased = "false"
-        height = "350"
-        width = "300"
-        offsetXY = "-200 -50"
-        padding = "20 20 20 20"
-        rectAlignment = "UpperRight"
-        childAlignment = "MiddleCenter"
-        childForceExpandHeight = "false"
-        childForceExpandWidth = "false"
-        spacing = "30"
-        active = "false"
-        />
-
-    <Text class = "cardName"
-        color="#FFFFFF"
-        fontSize = "24"
-        preferredHeight = "150"
-        />
-    <Text class = "cardDesc"
-        color="#FFFFFF"
-        fontSize = "16"
-        preferredHeight = "200"
-        alignment = "UpperCenter"
-        /> -->
-
-    <Image class = "cardImage"
+    <TableLayout class = "cardLayout"
         width = "331.5"
-        height = "500"
-        offsetXY = "-200 -100"
-        rectAlignment = "UpperRight"
+        height = "560"
+        rectAlignment = "LowerCenter"
         allowDragging = "true"
         returnToOriginalPositionWhenReleased = "false"
         active = "false"
         />
 
+    <Row class = "cardImageRow"
+        preferredHeight = "500"
+        />
+
+    <Row class = "cardButtonsRow"
+        preferredHeight = "50"
+        />
+        
+    <Cell class =  "cardImageCell" dontUseTableCellBackground = "true" columnSpan = "2"/>
+    <Cell class =  "cardButtonsCell" dontUseTableCellBackground = "true" columnSpan = "1"/>
 </Defaults>

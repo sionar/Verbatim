@@ -87,30 +87,6 @@
     <Button class = "actionButton blueButton" onClick="uiToggleModifyScores">Modify Scores</Button>
 </VerticalLayout>
 
-<TableLayout id = "playingButtonsRed" class = "playingButtonsLayout">
-    <Row>
-        <Cell class = "buttonsCell">
-            <Button class = "redButton" onClick="uiScore(Red)">Score</Button>
-        </Cell>
-        <Cell class = "emptyCell"> </Cell>
-        <Cell class = "buttonsCell">
-            <Button class = "redButton" onClick="uiPass(Red)">Pass</Button>
-        </Cell>
-    </Row>
-</TableLayout>
-
-<TableLayout id = "playingButtonsBlue" class = "playingButtonsLayout">
-    <Row>
-        <Cell class = "buttonsCell">
-            <Button class = "playingButton blueButton" onClick="uiScore(Blue)">Score</Button>
-        </Cell>
-        <Cell class = "emptyCell"> </Cell>
-        <Cell class = "buttonsCell">
-            <Button class = "playingButton blueButton" onClick="uiPass(Blue)">Pass</Button>
-        </Cell>
-    </Row>
-</TableLayout>
-
 <TableLayout id = "modifyScoreLayout" class = "modifyScoreLayout">
     <Row class = "modifyScoreRow1">
         <Cell class = "modifyScoreLabelTextCell"><Text class = "modifyScoreLabelText" text="Modify Scores"></Text></Cell>
@@ -133,9 +109,34 @@
     <Button id = "toggleGameButtons" class = "toggleGameButtons"></Button>
 </VerticalLayout>
 
-<!-- <VerticalLayout id = "cardTextLayout" class = "cardTextLayout">
-    <Text id = "cardName" class = "cardName" text = ""></Text>
-    <Text id = "cardDesc" class = "cardDesc" text = ""></Text>
-</VerticalLayout> -->
+<TableLayout id = "cardLayoutRed" class = "cardLayout">
+    <Row class = "cardImageRow">
+        <Cell class = "cardImageCell">
+            <Image id = "cardImageRed" class = "cardImage"></Image>
+        </Cell>
+    </Row>
+    <Row class = "cardButtonsRow">
+        <Cell class = "cardButtonsCell">
+            <Button class = "redButton" onClick="uiScore">Score</Button>
+        </Cell>
+        <Cell class = "cardButtonsCell">
+            <Button class = "redButton" onClick="uiPass">Pass</Button>
+        </Cell>
+    </Row>
+</TableLayout>
 
-<Image id = "cardImage" class = "cardImage"></Image>
+<TableLayout id = "cardLayoutBlue" class = "cardLayout">
+    <Row class = "cardImageRow">
+        <Cell class = "cardImageCell">
+            <Image id = "cardImageBlue" class = "cardImage"></Image>
+        </Cell>
+    </Row>
+    <Row class = "cardButtonsRow">
+        <Cell class = "cardButtonsCell">
+            <Button class = "blueButton" onClick="uiScore">Score</Button>
+        </Cell>
+        <Cell class = "cardButtonsCell">
+            <Button class = "blueButton" onClick="uiPass">Pass</Button>
+        </Cell>
+    </Row>
+</TableLayout>
