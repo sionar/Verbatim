@@ -1231,6 +1231,7 @@ function drawButtons()
     recolorButtons(currentTeam)
     showButtonsUI('None', 'gameButtonsLayout')
     showButtonsUI('None', 'startButtonLayout')
+    adjustCardUI()
     showButtonsUI(currentTeam, 'cardLayout')
     -- Wait.time(uiUpdateCard, 0.4)
     Wait.time(uiUpdateCardImage, 0.4)
@@ -1315,7 +1316,6 @@ function onChat(message, player)
       tableBG.interactable = not tableBG.interactable
       return false
     end
-
   end
 end
 
@@ -1474,6 +1474,24 @@ end
 function checkDoneRotating()
     if doneRotating then
         updateVisibilityUI()
+    end
+end
+
+function adjustCardUI()
+    if round ~= 3 then
+        UI.setAttributes('cardLayoutRed', {width = "431", height = "740", rectAlignment = "LowerCenter", offsetXY = "0 0"})
+        UI.setAttributes('cardLayoutBlue', {width = "431", height = "740", rectAlignment = "LowerCenter", offsetXY = "0 0"})
+        UI.setAttribute('cardImageRowRed', 'preferredHeight', '650')
+        UI.setAttribute('cardImageRowBlue', 'preferredHeight', '650')
+        UI.setAttribute('cardButtonsRowRed', 'preferredHeight', '80')
+        UI.setAttribute('cardButtonsRowBlue', 'preferredHeight', '80')
+    else
+        UI.setAttributes('cardLayoutRed', {width = "331.5", height = "580", rectAlignment = "MiddleRight", offsetXY = "-30 0"})
+        UI.setAttributes('cardLayoutBlue', {width = "331.5", height = "580", rectAlignment = "MiddleRight", offsetXY = "-30 0"})
+        UI.setAttribute('cardImageRowRed', 'preferredHeight', '500')
+        UI.setAttribute('cardImageRowBlue', 'preferredHeight', '500')
+        UI.setAttribute('cardButtonsRowRed', 'preferredHeight', '70')
+        UI.setAttribute('cardButtonsRowBlue', 'preferredHeight', '70')
     end
 end
 

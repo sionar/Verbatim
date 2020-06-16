@@ -110,12 +110,12 @@
 </VerticalLayout>
 
 <TableLayout id = "cardLayoutRed" class = "cardLayout">
-    <Row class = "cardImageRow">
+    <Row class = "cardImageRow" id = "cardImageRowRed">
         <Cell class = "cardImageCell">
             <Image id = "cardImageRed" class = "cardImage"></Image>
         </Cell>
     </Row>
-    <Row class = "cardButtonsRow">
+    <Row class = "cardButtonsRow" id = "cardButtonsRowRed">
         <Cell class = "cardButtonsCell">
             <Button class = "redButton playingButton" onClick="uiScore">Score</Button>
         </Cell>
@@ -126,12 +126,12 @@
 </TableLayout>
 
 <TableLayout id = "cardLayoutBlue" class = "cardLayout">
-    <Row class = "cardImageRow">
+    <Row class = "cardImageRow"  id = "cardImageRowBlue">
         <Cell class = "cardImageCell">
             <Image id = "cardImageBlue" class = "cardImage"></Image>
         </Cell>
     </Row>
-    <Row class = "cardButtonsRow">
+    <Row class = "cardButtonsRow" id = "cardButtonsRowBlue">
         <Cell class = "cardButtonsCell">
             <Button class = "blueButton playingButton" onClick="uiScore">Score</Button>
         </Cell>
