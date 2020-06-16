@@ -1311,7 +1311,6 @@ end
 -- testing purposes only
 function onChat(message, player)
   if player.admin then
-
     if message == "!background" then
       tableBG.interactable = not tableBG.interactable
       return false
@@ -1320,10 +1319,14 @@ function onChat(message, player)
   end
 end
 
-
-function onScriptingButtonDown(index, player_color)
-
-
+function onScriptingButtonDown(index, playerColor)
+    if status == 'playing' and playerColor == currentTeam then
+        if index == 1 then
+            score(nil, playerColor)
+        elseif index == 2 then
+            pass(true, playerColor)
+        end
+    end
 end
 
 function shuffleTable(tab)

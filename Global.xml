@@ -117,10 +117,10 @@
     </Row>
     <Row class = "cardButtonsRow">
         <Cell class = "cardButtonsCell">
-            <Button class = "redButton" onClick="uiScore">Score</Button>
+            <Button class = "redButton playingButton" onClick="uiScore">Score</Button>
         </Cell>
         <Cell class = "cardButtonsCell">
-            <Button class = "redButton" onClick="uiPass">Pass</Button>
+            <Button class = "redButton playingButton" onClick="uiPass">Pass</Button>
         </Cell>
     </Row>
 </TableLayout>
@@ -133,10 +133,10 @@
     </Row>
     <Row class = "cardButtonsRow">
         <Cell class = "cardButtonsCell">
-            <Button class = "blueButton" onClick="uiScore">Score</Button>
+            <Button class = "blueButton playingButton" onClick="uiScore">Score</Button>
         </Cell>
         <Cell class = "cardButtonsCell">
-            <Button class = "blueButton" onClick="uiPass">Pass</Button>
+            <Button class = "blueButton playingButton" onClick="uiPass">Pass</Button>
         </Cell>
     </Row>
 </TableLayout>

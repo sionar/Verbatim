@@ -226,8 +226,8 @@
         />
 
     <TableLayout class = "cardLayout"
-        width = "331.5"
-        height = "560"
+        width = "431"
+        height = "740"
         rectAlignment = "LowerCenter"
         allowDragging = "true"
         returnToOriginalPositionWhenReleased = "false"
@@ -235,13 +235,14 @@
         />
 
     <Row class = "cardImageRow"
-        preferredHeight = "500"
+        preferredHeight = "650"
         />
 
     <Row class = "cardButtonsRow"
-        preferredHeight = "50"
+        preferredHeight = "80"
         />
-        
-    <Cell class =  "cardImageCell" dontUseTableCellBackground = "true" columnSpan = "2"/>
-    <Cell class =  "cardButtonsCell" dontUseTableCellBackground = "true" columnSpan = "1"/>
+
+    <Cell class = "cardImageCell" dontUseTableCellBackground = "true" columnSpan = "2"/>
+    <Cell class = "cardButtonsCell" dontUseTableCellBackground = "true" columnSpan = "1"/>
+    <Button class = "playingButton" fontSize = "24"/>
 </Defaults>
