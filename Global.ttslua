@@ -822,7 +822,8 @@ function getNewCard(team)
     -- only deal a card it's at the bottom of the table
     -- this is mainly done because "decks" that are actually 1 card will be sent back to the player's hand otherwise
     deck.deal(1, currentTeam)
-    Wait.time(uiUpdateCard, 0.4)
+    -- Wait.time(uiUpdateCard, 0.4)
+    Wait.time(uiUpdateCardImage, 0.4)
     if deck.tag == "Card" then
       return true
     end
@@ -1224,7 +1225,7 @@ function drawButtons()
     UI.setAttribute('nextRoundLayout', 'active', 'false')
     UI.setAttribute('gameSetup'..uiDeckType..'Layout', 'active', 'false')
     UI.setAttribute('timeLayout', 'active', 'true')
-    UI.setAttribute('cardTextLayout', 'active', 'false')
+    UI.setAttribute('cardImage', 'active', 'false')
   elseif status == "playing" then
     checkerPassScore.createButton(passParams)
     checkerPassScore.createButton(scoreParams)
@@ -1232,9 +1233,10 @@ function drawButtons()
     showButtonsUI('None', 'gameButtonsLayout')
     showButtonsUI('None', 'startButtonLayout')
     showButtonsUI(currentTeam, 'playingButtons')
-    UI.setAttribute('cardTextLayout', 'visibility', currentTeam)
-    UI.setAttribute('cardTextLayout', 'active', 'true')
-    Wait.time(uiUpdateCard, 0.4)
+    UI.setAttribute('cardImage', 'visibility', currentTeam .. '|Black')
+    UI.setAttribute('cardImage', 'active', 'true')
+    -- Wait.time(uiUpdateCard, 0.4)
+    Wait.time(uiUpdateCardImage, 0.4)
   elseif status == "scoring" then
     -- end of round, players are busy scoring
     checkerStart.createButton(countPointParams)
@@ -1242,8 +1244,9 @@ function drawButtons()
     showButtonsUI('None', 'playingButtons')
     UI.setAttribute('timeLayout', 'active', 'false')
     UI.setAttribute('countPointsLayout', 'active', 'true')
-    UI.setAttribute('cardTextLayout', 'active', 'false')
-    uiResetCard()
+    UI.setAttribute('cardImage', 'active', 'false')
+    -- uiResetCard()
+    uiResetCardImage()
   elseif status == "ready" then
     -- players are done scoring and ready to go to the next round
     checkerStart.createButton(endRoundParams)
@@ -1265,7 +1268,7 @@ function drawButtons()
     UI.setAttribute('countPointsLayout', 'active', 'false')
     UI.setAttribute('gameSetup'..uiDeckType..'Layout', 'active', 'true')
     UI.setAttribute('timeLayout', 'active', 'false')
-    UI.setAttribute('cardTextLayout', 'active', 'false')
+    UI.setAttribute('cardImage', 'active', 'false')
   end
 end
 
@@ -1410,7 +1413,7 @@ function deckSpawned(obj, cardAmount)
     back_is_hidden = true,
     number = cardAmount
   })
-
+  local uiAssets = {}
 
   local cardNum = #obj.getObjects()
   for i = 1, cardNum do
@@ -1422,8 +1425,11 @@ function deckSpawned(obj, cardAmount)
       card.script_code = "--" .. cards[i].PointValue
       card.script_code = card.script_code .. ";" .. cards[i].VerbatimCardId
       card.setDescription(cards[i].Description)
+      card.setGMNotes(i)
+      table.insert(uiAssets, {name = i, url = "https://platypuseggs.com/VerbatimService.svc/RenderCard/" .. cards[i].VerbatimCardId})
       --cardPoints[card.guid] = cards[i].PointValue
-    end
+  end
+  UI.setCustomAssets(uiAssets)
   end
 
   spawningDeck = false
@@ -1688,7 +1694,7 @@ end
 function uiDecklistDropdown(player, value, id)
     for i,v in ipairs(decklist) do
         if string.match(value, v.Name) then
-            print('\n[338EF8]' .. v.Name .. '[-] deck selected.\n[338EF8]Author: [-]' .. v.Author .. '\n[338EF8]Description:[-] ' .. v.Description)
+            printToAll('\n[338EF8]' .. v.Name .. '[-] deck selected.\n[338EF8]Author: [-]' .. v.Author .. '\n[338EF8]Description:[-] ' .. v.Description)
             uiInputToken = v.IdentifiyngToken
             UI.setAttribute('gameSetupTokenInput', 'text', v.IdentifiyngToken)
             break
@@ -1812,4 +1818,13 @@ end
 function uiResetCard()
     UI.setAttribute('cardName', 'text', '')
     UI.setAttribute('cardDesc', 'text', '')
+end
+
+function uiUpdateCardImage()
+    local card = Player[currentTeam].getHandObjects()[1]
+    UI.setAttribute('cardImage', 'image', card.getGMNotes())
+end
+
+function uiResetCardImage()
+    UI.setAttribute('cardImage', 'image', '0')
 end

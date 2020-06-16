@@ -225,7 +225,7 @@
         textColor = "#FFFFFF"
         />
 
-    <VerticalLayout class = "cardTextLayout"
+    <!-- <VerticalLayout class = "cardTextLayout"
         color = "#66666640"
         allowDragging = "true"
         returnToOriginalPositionWhenReleased = "false"
@@ -251,6 +251,16 @@
         fontSize = "16"
         preferredHeight = "200"
         alignment = "UpperCenter"
+        /> -->
+
+    <Image class = "cardImage"
+        width = "331.5"
+        height = "500"
+        offsetXY = "-200 -100"
+        rectAlignment = "UpperRight"
+        allowDragging = "true"
+        returnToOriginalPositionWhenReleased = "false"
+        active = "false"
         />
 
 </Defaults>
