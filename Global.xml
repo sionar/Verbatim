@@ -109,7 +109,7 @@
     <Button id = "toggleGameButtons" class = "toggleGameButtons"></Button>
 </VerticalLayout>
 
-<TableLayout id = "cardLayoutRed" class = "cardLayout">
+<TableLayout id = "cardLayoutRed" class = "cardLayout" visibility = "Red|Black">
     <Row class = "cardImageRow" id = "cardImageRowRed">
         <Cell class = "cardImageCell">
             <Image id = "cardImageRed" class = "cardImage"></Image>
@@ -125,7 +125,7 @@
     </Row>
 </TableLayout>
 
-<TableLayout id = "cardLayoutBlue" class = "cardLayout">
+<TableLayout id = "cardLayoutBlue" class = "cardLayout" visibility = "Blue|Black">
     <Row class = "cardImageRow"  id = "cardImageRowBlue">
         <Cell class = "cardImageCell">
             <Image id = "cardImageBlue" class = "cardImage"></Image>

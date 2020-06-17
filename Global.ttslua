@@ -1534,8 +1534,6 @@ function updateVisibilityUI()
     UI.setAttribute('startButtonLayoutBlue', 'visibility', visStrBlue)
     UI.setAttribute('gameButtonsLayoutRed', 'visibility', visStrRedAdmin)
     UI.setAttribute('gameButtonsLayoutBlue', 'visibility', visStrBlueAdmin)
-    UI.setAttribute('cardLayoutRed', 'visibility', visStrRed)
-    UI.setAttribute('cardLayoutBlue', 'visibility', visStrBlue)
     UI.setAttribute('checkPointsLayout', 'visibility', visStrAll)
     UI.setAttribute('nextRoundLayout', 'visibility', visStrAll)
     UI.setAttribute('gameSetupNormalLayout', 'visibility', visAdmin)
@@ -1645,9 +1643,6 @@ function uiSpawnDeck(btn_object, color, alt_click, token)
         end
     end
 
-    -- less than 6 players = 4 cards each
-    -- more than 5 = 3 cards each
-    -- players will discard 2 cards each, so raise the number of cards per player by 2
     playerCount = #getSeatedPlayers()
     local cardCount
 
@@ -1801,17 +1796,17 @@ function uiResetTime(player, value, id)
 end
 
 function uiChallenge(player, value, id)
-  challengeCard(player.color)
+    challengeCard(player.color)
 end
 
 function uiChallengeActive(bool)
-  if bool then
-    UI.setAttribute("challengeButtonWhite", "active", "true")
-    UI.setAttribute("challengeButtonBlack", "active", "false")
-  else
-    UI.setAttribute("challengeButtonWhite", "active", "false")
-    UI.setAttribute("challengeButtonBlack", "active", "true")
-  end
+    if bool then
+        UI.setAttribute("challengeButtonWhite", "active", "true")
+        UI.setAttribute("challengeButtonBlack", "active", "false")
+    else
+        UI.setAttribute("challengeButtonWhite", "active", "false")
+        UI.setAttribute("challengeButtonBlack", "active", "true")
+    end
 end
 
 function uiToggleButtons(player, value, id)
