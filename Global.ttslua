@@ -1486,8 +1486,8 @@ function adjustCardUI()
         UI.setAttribute('cardButtonsRowRed', 'preferredHeight', '80')
         UI.setAttribute('cardButtonsRowBlue', 'preferredHeight', '80')
     else
-        UI.setAttributes('cardLayoutRed', {width = "331.5", height = "580", rectAlignment = "MiddleRight", offsetXY = "-30 0"})
-        UI.setAttributes('cardLayoutBlue', {width = "331.5", height = "580", rectAlignment = "MiddleRight", offsetXY = "-30 0"})
+        UI.setAttributes('cardLayoutRed', {width = "331.5", height = "580", rectAlignment = "LowerCenter", offsetXY = "0 0"})
+        UI.setAttributes('cardLayoutBlue', {width = "331.5", height = "580", rectAlignment = "LowerCenter", offsetXY = "0 0"})
         UI.setAttribute('cardImageRowRed', 'preferredHeight', '500')
         UI.setAttribute('cardImageRowBlue', 'preferredHeight', '500')
         UI.setAttribute('cardButtonsRowRed', 'preferredHeight', '70')
@@ -1762,13 +1762,16 @@ function uiSetTime(val)
 end
 
 function uiStartTime()
-    uiTimeId = Wait.time(uiDecrementTime, 1, -1)
-    uiTimeActive = true
+    if uiTimeId == nil then
+        uiTimeId = Wait.time(uiDecrementTime, 1, -1)
+        uiTimeActive = true        
+    end
 end
 
 function uiStopTime()
     if uiTimeId then
         Wait.stop(uiTimeId)
+        uiTimeId = nil
     end
     uiTimeActive = false
 end
