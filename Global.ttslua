@@ -199,6 +199,12 @@ roundToHand = {
   [1] = 1, [2] = 1, [3] = 1
 }
 
+roundToCentre = {
+  [1] = {0, 2, 0},
+  [2] = {0, 2, 0},
+  [3] = {0, 2, 21}
+}
+
 roundTime = {
   [1] = 60,
   [2] = 30,
@@ -1198,9 +1204,9 @@ function challengeCard(color)
   if obj == nil then
     return
   elseif obj.tag == "Card" then
-    obj.setPositionSmooth({0,2,0})
+    obj.setPositionSmooth(roundToCentre[round])
   else
-    obj.takeObject({position = {0,2,0}, smooth = true})
+    obj.takeObject({position = roundToCentre[round], smooth = true})
   end
 
   printToAll("[" .. colorToHex[color] .. "]" .. Player[color].steam_name .. "[-] has challenged a card", {1, 1, 0})
