@@ -971,6 +971,7 @@ function newGame(object, color)
   round = 1
   points["Red"] = 0 points["Blue"] = 0
   updatePoints()
+  uiChallengeActive(false)
   uiSetTime(roundTime[1])
   uiStopTime()
 
