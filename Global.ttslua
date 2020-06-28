@@ -1667,6 +1667,9 @@ function uiSpawnDeck(btn_object, color, alt_click, token)
         printToAll("No token input found, please input a token and try again", textColor["Red"])
         return
     end
+
+    broadcastToAll("Spawning a deck, please wait...", {1,1,0})
+
     amountToDeal = tonumber(uiCardsInput) + tonumber(uiDiscardInput)
     spawningDeck = true
     Wait.time(function() spawnDeckCooldown = spawnDeckCooldown - 1 end, 1, 3)
