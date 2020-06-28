@@ -848,16 +848,20 @@ function getNewCard(team)
     end
   end
 
+  local cardId
   if includes(bottomZone.getObjects(), deck) then
     -- only deal a card it's at the bottom of the table
     -- this is mainly done because "decks" that are actually 1 card will be sent back to the player's hand otherwise
+    if deck.tag == 'Deck' then
+        cardId = deck.getObjects()[1].gm_notes
+    else
+        cardId = deck.getGMNotes()
+    end
     deck.deal(1, currentTeam)
-    -- Wait.time(uiUpdateCard, 0.4)
-    Wait.time(uiUpdateCardImage, 0.4)
+    uiUpdateCardImage(cardId)
     if deck.tag == "Card" then
       return true
     end
-
   end
 
 end
@@ -1267,7 +1271,7 @@ function drawButtons()
     adjustCardUI()
     showButtonsUI(currentTeam, 'cardLayout')
     -- Wait.time(uiUpdateCard, 0.4)
-    Wait.time(uiUpdateCardImage, 0.4)
+    -- Wait.time(uiUpdateCardImage, 0.4)
   elseif status == "scoring" then
     -- end of round, players are busy scoring
     checkerStart.createButton(countPointParams)
@@ -1520,8 +1524,8 @@ function adjustCardUI()
         UI.setAttribute('cardButtonsRowRed', 'preferredHeight', '80')
         UI.setAttribute('cardButtonsRowBlue', 'preferredHeight', '80')
     else
-        UI.setAttributes('cardLayoutRed', {width = "331.5", height = "580", rectAlignment = "MiddleRight", offsetXY = "-30 0"})
-        UI.setAttributes('cardLayoutBlue', {width = "331.5", height = "580", rectAlignment = "MiddleRight", offsetXY = "-30 0"})
+        UI.setAttributes('cardLayoutRed', {width = "331.5", height = "580", rectAlignment = "LowerCenter", offsetXY = "0 0"})
+        UI.setAttributes('cardLayoutBlue', {width = "331.5", height = "580", rectAlignment = "LowerCenter", offsetXY = "0 0"})
         UI.setAttribute('cardImageRowRed', 'preferredHeight', '500')
         UI.setAttribute('cardImageRowBlue', 'preferredHeight', '500')
         UI.setAttribute('cardButtonsRowRed', 'preferredHeight', '70')
@@ -1799,13 +1803,16 @@ function uiSetTime(val)
 end
 
 function uiStartTime()
-    uiTimeId = Wait.time(uiDecrementTime, 1, -1)
-    uiTimeActive = true
+    if uiTimeId == nil then
+        uiTimeId = Wait.time(uiDecrementTime, 1, -1)
+        uiTimeActive = true
+    end
 end
 
 function uiStopTime()
     if uiTimeId then
         Wait.stop(uiTimeId)
+        uiTimeId = nil
     end
     uiTimeActive = false
 end
@@ -1858,20 +1865,8 @@ function uiToggleButtons(player, value, id)
     end
 end
 
-function uiUpdateCard()
-    local card = Player[currentTeam].getHandObjects()[1]
-    UI.setAttribute('cardName', 'text', card.getName())
-    UI.setAttribute('cardDesc', 'text', card.getDescription())
-end
-
-function uiResetCard()
-    UI.setAttribute('cardName', 'text', '')
-    UI.setAttribute('cardDesc', 'text', '')
-end
-
-function uiUpdateCardImage()
-    local card = Player[currentTeam].getHandObjects()[1]
-    UI.setAttribute('cardImage' .. currentTeam, 'image', card.getGMNotes())
+function uiUpdateCardImage(cardId)
+    UI.setAttribute('cardImage' .. currentTeam, 'image', cardId)
 end
 
 function uiResetCardImage()
