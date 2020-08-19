@@ -4,7 +4,31 @@ buttonColors = {
   ["Red"]     = {{218/255, 25/255, 24/255}, {172/255, 20/255, 19/255}, {126/255, 15/255, 14/255}},
   ["Blue"]    = {{31/255, 135/255, 255/255}, {0/255, 109/255, 235/255}, {0/255, 85/255, 184/255}},
   ["Green"]   = {{49/255, 179/255, 43/255}, {38/255, 138/255, 33/255}, {27/255, 97/255, 23/255}},
-  ["Black"] = {{15/255, 15/255, 15/255}} -- unused
+  ["Black"] = {{15/255, 15/255, 15/255}}, -- unused
+
+  ["Teal"]    = {{33/255, 177/255, 155/255}, {25/255, 134/255, 117/255}, {17/255, 91/255, 79/255}},
+  ["Orange"]  = {{244/255, 100/255, 29/255}, {212/255, 77/255, 10/255}, {163/255, 59/255, 8/255}},
+  ["Yellow"]  = {{231/255, 229/255, 44/255}, {201/255, 199/255, 23/255}, {155/255, 154/255, 18/255}},
+
+  ["White"]   = {{255/255, 255/255, 255/255}, {229/255, 229/255, 229/255}, {203/255, 203/255, 203/255}},
+  ["Purple"]  = {{160/255, 32/255, 240/255}, {133/255, 14/255, 207/255}, {102/255, 11/255, 159/255}},
+  ["Pink"]    = {{245/255, 112/255, 206/255}, {242/255, 64/255, 190/255}, {239/255, 16/255, 174/255}},
+  ["Brown"]   = {{133/255, 59/255, 23/255}, {71/255, 37/255, 14/255}, {28/255, 15/255, 6/255}}
+}
+
+colorToHex = {
+  ["Red"] = "f20d0d",
+  ["Orange"] = "f2800d",
+  ["Yellow"] = "f2f20d",
+  ["Teal"] = "00cc99",
+  ["Green"] = "33cc59",
+
+  ["Blue"] = "0d80f2",
+  ["Pink"] = "ff80ff",
+  ["Purple"] = "800df2",
+  ["Brown"] = "853b19",
+  ["White"] = "ffffff"
+
 }
 
 startParams = {
@@ -173,6 +197,12 @@ handScale = {
 -- (no longer "used", just defaults to 1)
 roundToHand = {
   [1] = 1, [2] = 1, [3] = 1
+}
+
+roundToCentre = {
+  [1] = {0, 2, 0},
+  [2] = {0, 2, 0},
+  [3] = {0, 2, 21}
 }
 
 roundTime = {
@@ -945,6 +975,7 @@ function newGame(object, color)
   round = 1
   points["Red"] = 0 points["Blue"] = 0
   updatePoints()
+  uiChallengeActive(false)
   uiSetTime(roundTime[1])
   uiStopTime()
 
@@ -1178,10 +1209,12 @@ function challengeCard(color)
   if obj == nil then
     return
   elseif obj.tag == "Card" then
-    obj.setPositionSmooth({0,2,0})
+    obj.setPositionSmooth(roundToCentre[round])
   else
-    obj.takeObject({position = {0,2,0}, smooth = true})
+    obj.takeObject({position = roundToCentre[round], smooth = true})
   end
+
+  printToAll("[" .. colorToHex[color] .. "]" .. Player[color].steam_name .. "[-] has challenged a card", {1, 1, 0})
 
   uiChallengeActive(false)
 
@@ -1332,6 +1365,7 @@ function onScriptingButtonDown(index, playerColor)
             pass(true, playerColor)
         end
     end
+
 end
 
 function shuffleTable(tab)
@@ -1671,6 +1705,9 @@ function uiSpawnDeck(btn_object, color, alt_click, token)
         printToAll("No token input found, please input a token and try again", textColor["Red"])
         return
     end
+
+    broadcastToAll("Spawning a deck, please wait...", {1,1,0})
+
     amountToDeal = tonumber(uiCardsInput) + tonumber(uiDiscardInput)
     spawningDeck = true
     Wait.time(function() spawnDeckCooldown = spawnDeckCooldown - 1 end, 1, 3)
