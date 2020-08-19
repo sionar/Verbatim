@@ -1237,6 +1237,7 @@ function drawButtons()
     showButtonsUI('None', 'startButtonLayout')
     adjustCardUI()
     showButtonsUI(currentTeam, 'cardLayout')
+    uiCardResize(currentTeam)
     -- Wait.time(uiUpdateCard, 0.4)
     -- Wait.time(uiUpdateCardImage, 0.4)
   elseif status == "scoring" then
@@ -1464,6 +1465,9 @@ uiTime = 60
 uiTimeId = nil
 uiTimeActive = false
 uiButtonsInvisible = true
+uiCardScale = {Red = 100, Blue = 100}
+uiCardWidth = 431
+uiCardHeight = 650
 
 function onPlayerChangeColor(playerColor)
     doneRotating = false
@@ -1560,6 +1564,36 @@ end
 
 function uiStartTurn(player, value, id)
     startTurn(nil, player.color)
+end
+
+function uiCardSizeDec(player, value, id)
+    local color = player.color
+    if not (color == 'Blue' or color == 'Red') then
+        return
+    end
+    if uiCardScale[color] > 50 then
+        uiCardScale[color] = uiCardScale[color] - 10
+    end
+
+    uiCardResize(player.color)
+end
+
+function uiCardSizeInc(player, value, id)
+    local color = player.color
+    if not (color == 'Blue' or color == 'Red') then
+        return
+    end
+    if uiCardScale[color] < 100 then
+        uiCardScale[color] = uiCardScale[color] + 10
+    end
+
+    uiCardResize(player.color)
+end
+
+function uiCardResize(color)
+    UI.setAttribute('cardImageRow' .. color, 'preferredHeight', uiCardHeight * uiCardScale[color] * 0.01)
+    UI.setAttribute('cardLayout' .. color, 'width', uiCardWidth * uiCardScale[color] * 0.01)
+    UI.setAttribute('cardSizeDisplayButton' .. color, 'text', uiCardScale[color] .. '%')
 end
 
 function uiScore(player, value, id)
