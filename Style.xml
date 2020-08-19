@@ -234,6 +234,10 @@
         active = "false"
         />
 
+    <Row class = "cardSizeRow"
+        preferredHeight = "40"
+        />
+
     <Row class = "cardImageRow"
         preferredHeight = "650"
         />
@@ -242,7 +246,11 @@
         preferredHeight = "80"
         />
 
-    <Cell class = "cardImageCell" dontUseTableCellBackground = "true" columnSpan = "2"/>
-    <Cell class = "cardButtonsCell" dontUseTableCellBackground = "true" columnSpan = "1"/>
-    <Button class = "playingButton" fontSize = "24"/>
+    <Cell class = "cardSizeDecCell" dontUseTableCellBackground = "true" columnSpan = "1" />
+    <Cell class = "cardSizeLabelCell" dontUseTableCellBackground = "true" columnSpan = "2" />
+    <Cell class = "cardSizeIncCell" dontUseTableCellBackground = "true" columnSpan = "1" />
+    <Cell class = "cardImageCell" dontUseTableCellBackground = "true" columnSpan = "4" />
+    <Cell class = "cardButtonsCell" dontUseTableCellBackground = "true" columnSpan = "2" />
+    <Button class = "playingButton" fontSize = "24" />
+    <Button class = "cardSizeDisplayButton" colors = "#FFFFFFFF|#FFFFFFFF|#FFFFFFFF|#FFFFFFFF" />
 </Defaults>

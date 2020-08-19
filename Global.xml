@@ -110,6 +110,17 @@
 </VerticalLayout>
 
 <TableLayout id = "cardLayoutRed" class = "cardLayout" visibility = "Red|Black">
+    <Row class = "cardSizeRow" id = "cardSizeRowRed">
+        <Cell class = "cardSizeDecCell">
+            <Button class = "cardSizeButton" onClick="uiCardSizeDec">-</Button>
+        </Cell>
+        <Cell class = "cardSizeLabelCell">
+            <Button class = "cardSizeDisplayButton" id = "cardSizeDisplayButtonRed">100%</Button>
+        </Cell>
+        <Cell class = "cardSizeIncCell">
+            <Button class = "cardSizeButton" onClick="uiCardSizeInc">+</Button>
+        </Cell>
+    </Row>
     <Row class = "cardImageRow" id = "cardImageRowRed">
         <Cell class = "cardImageCell">
             <Image id = "cardImageRed" class = "cardImage"></Image>
@@ -126,7 +137,18 @@
 </TableLayout>
 
 <TableLayout id = "cardLayoutBlue" class = "cardLayout" visibility = "Blue|Black">
-    <Row class = "cardImageRow"  id = "cardImageRowBlue">
+    <Row class = "cardSizeRow" id = "cardSizeRowBlue">
+        <Cell class = "cardSizeDecCell">
+            <Button class = "cardSizeButton" onClick="uiCardSizeDec">-</Button>
+        </Cell>
+        <Cell class = "cardSizeLabelCell">
+            <Button class = "cardSizeDisplayButton" id = "cardSizeDisplayButtonBlue">100%</Button>
+        </Cell>
+        <Cell class = "cardSizeIncCell">
+            <Button class = "cardSizeButton" onClick="uiCardSizeInc">+</Button>
+        </Cell>
+    </Row>
+    <Row class = "cardImageRow" id = "cardImageRowBlue">
         <Cell class = "cardImageCell">
             <Image id = "cardImageBlue" class = "cardImage"></Image>
         </Cell>
