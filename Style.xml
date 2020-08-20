@@ -229,6 +229,7 @@
         width = "431"
         height = "740"
         rectAlignment = "LowerCenter"
+        offsetXY = "0 50"
         allowDragging = "true"
         returnToOriginalPositionWhenReleased = "false"
         active = "false"
