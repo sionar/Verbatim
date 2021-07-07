@@ -1379,9 +1379,8 @@ end
 function shufflePlayers(colour)
     printToAll("Shuffle Players: ".. Player[colour].steam_name .. " initiated shuffling.", textColour)
     local ranColours = getSeatedPlayers()
-    local firstId = Player[ranColours[1]].steam_id
-
     shuffleTable(ranColours)
+    local firstId = Player[ranColours[1]].steam_id
     Player[ranColours[1]].changeColor('Grey')
     for i = 2, #ranColours do
         Player[ranColours[i]].changeColor(ranColours[i-1])
