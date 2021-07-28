@@ -46,6 +46,11 @@
         <Button class = "gameSetupDeckButton" onClick="uiSetupNormalDeckButton" colors = "#66666680|#666666CC|#66666680|#66666680">Normal Deck</Button>
         <Button class = "gameSetupDeckButton" onClick="uiSetupCustomDeckButton" colors = "#FFFFFF80|#FFFFFFFF|#FFFFFF80|#FFFFFF80">Custom Deck</Button>
     </HorizontalLayout>
+    <Dropdown
+        class="gameSetupLanguageDropdownDisabled"
+        interactable = "false">
+        <Option>Select a language</Option>
+    </Dropdown>
     <Button id = "fetchListButton" class = "fetchListButton blackButton" onClick="uiFetchListButton" colors = "#66666680|#666666CC|#66666680|#66666680">Fetch Public Custom Decks</Button>
 
     <Text class = "gameSetupTokenText" color = "#FFFFFF" text="Custom Deck Token"></Text>

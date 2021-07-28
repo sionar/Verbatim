@@ -1748,6 +1748,7 @@ end
 
 function fetchCallback(req)
     if req.is_done and not req.is_error then
+        local languages = {}
         local response = JSON.decode(req.text)
         decklist = {}
         for i,v in ipairs(response) do
@@ -1756,7 +1757,7 @@ function fetchCallback(req)
             end
         end
         local xml = UI.getXmlTable()
-        local tab = {
+        local deckTab = {
             tag = "Dropdown",
             attributes = { class = "decklistDropdown", onValueChanged = "uiDecklistDropdown"},
             children = {{tag = 'Option', value = 'Choose a decklist', attributes = {}, children = {}}}
@@ -1766,11 +1767,24 @@ function fetchCallback(req)
             entry = {
                 tag = 'Option', value = v.Name .. ' [ ' .. v.TotalCards .. ' cards ]', attributes = {}, children = {}
             }
-            table.insert(tab.children, entry)
+            table.insert(deckTab.children, entry)
+            languages[v.Language] = true
+        end
+        local langTab = {
+            tag = "Dropdown",
+            attributes = { class = "gameSetupLanguageDropdownEnabled", onValueChanged = "uiLanguageDropdown"},
+            children = {{tag = 'Option', value = 'All languages', attributes = {}, children = {}}}
+            }
+        for k,v in pairs(languages) do
+            entry = {
+                tag = 'Option', value = k, attributes = {}, children = {}
+            }
+            table.insert(langTab.children, entry)
         end
         for k,v in pairs(xml) do
             if v.attributes.id == 'gameSetupCustomLayout' then
-                v.children[5] = tab
+                v.children[5] = langTab
+                v.children[6] = deckTab
             end
         end
         UI.setXmlTable(xml)
