@@ -1748,8 +1748,8 @@ end
 
 function fetchCallback(req)
     if req.is_done and not req.is_error then
-        local languages = {}
         local response = JSON.decode(req.text)
+        languages = {}
         decklist = {}
         for i,v in ipairs(response) do
             if v.TotalCards >= 50 then
@@ -1794,12 +1794,52 @@ end
 function uiDecklistDropdown(player, value, id)
     for i,v in ipairs(decklist) do
         if string.match(value, v.Name) then
-            printToAll('\n[338EF8]' .. v.Name .. '[-] deck selected.\n[338EF8]Author: [-]' .. v.Author .. '\n[338EF8]Description:[-] ' .. v.Description)
+            printToAll('\n[338EF8]Deck selected: [-]' .. v.Name .. '\n[338EF8]Author: [-]' .. v.Author .. '\n[338EF8]Language:[-] ' .. v.Language .. '\n[338EF8]Description:[-] ' .. v.Description)
             uiInputToken = v.IdentifiyngToken
             UI.setAttribute('gameSetupTokenInput', 'text', v.IdentifiyngToken)
             break
         end
     end
+end
+
+function uiLanguageDropdown(player, value, id)
+    local xml = UI.getXmlTable()
+    local langTab = {
+        tag = "Dropdown",
+        attributes = { class = "gameSetupLanguageDropdownEnabled", onValueChanged = "uiLanguageDropdown"},
+        children = {{tag = 'Option', value = 'All languages', attributes = {}, children = {}}}
+        }
+    local deckTab = {
+        tag = "Dropdown",
+        attributes = { class = "decklistDropdown", onValueChanged = "uiDecklistDropdown"},
+        children = {{tag = 'Option', value = 'Choose a decklist', attributes = {}, children = {}}}
+        }
+    local entry = {}
+    for k,v in pairs(languages) do
+        entry = {
+            tag = 'Option', value = k, attributes = {}, children = {}
+        }
+        if k == value then
+            entry.attributes.selected = "true"
+        end
+        table.insert(langTab.children, entry)
+    end
+
+    for i,v in ipairs(decklist) do
+        if value == 'All languages' or v.Language == value then
+            entry = {
+                tag = 'Option', value = v.Name .. ' [ ' .. v.TotalCards .. ' cards ]', attributes = {}, children = {}
+            }
+            table.insert(deckTab.children, entry)
+        end
+    end
+    for k,v in pairs(xml) do
+        if v.attributes.id == 'gameSetupCustomLayout' then
+            v.children[5] = langTab
+            v.children[6] = deckTab
+        end
+    end
+    UI.setXmlTable(xml)
 end
 
 function uiShuffleSeats(player, value, id)
